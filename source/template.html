@@ -801,6 +801,37 @@ code, kbd, samp, pre {
         <!-- ===== PLANO ===== -->
         <sc-if value="{{ isPlano }}" hint-placeholder-val="{{ false }}">
         <div>
+          <!-- A MINHA AGENDA (por hora) -->
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:3px;">
+            <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:18px;color:#111111;">A minha agenda</div>
+            <div style="font-size:11px;font-weight:700;color:#9A9A9A;">{{ myAgendaCount }}</div>
+          </div>
+          <div style="font-size:11.5px;color:#7A828C;line-height:1.45;margin-bottom:11px;">Por hora — é a hora que conta. <b style="color:#111111;">Choque de hora</b> = escolheste duas à mesma hora.</div>
+          <sc-if value="{{ hasMyAgenda }}" hint-placeholder-val="{{ true }}">
+          <div style="margin-bottom:22px;">
+            <sc-for list="{{ myAgenda }}" as="m" hint-placeholder-count="4">
+              <div>
+                <sc-if value="{{ m.isDay }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9A9A9A;margin:14px 0 7px;">{{ m.label }}</div>
+                </sc-if>
+                <sc-if value="{{ m.isItem }}" hint-placeholder-val="{{ true }}">
+                  <div style="{{ m.style }}">
+                    <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:16px;color:#111111;min-width:50px;flex-shrink:0;">{{ m.time }}</div>
+                    <div style="flex:1;min-width:0;">
+                      <div style="font-size:12.5px;font-weight:700;color:#1A1A1A;line-height:1.3;">{{ m.title }}</div>
+                      <div style="font-size:11px;color:#666666;margin-top:2px;">{{ m.room }}</div>
+                      <sc-if value="{{ m.conflict }}" hint-placeholder-val="{{ false }}"><div style="display:inline-block;margin-top:5px;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;background:#111111;color:#fff;padding:2px 7px;border-radius:3px;">⚠ Choque de hora</div></sc-if>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          </sc-if>
+          <sc-if value="{{ noMyAgenda }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;border:1px dashed rgba(0,0,0,.2);border-radius:6px;padding:16px 14px;text-align:center;font-size:12.5px;color:#8A929C;line-height:1.5;margin-bottom:22px;">Ainda não escolheste sessões. Na Agenda, toca na <b style="color:#111111;">★</b> de cada sessão para a juntar aqui — organizada por hora.</div>
+          </sc-if>
+
           <div style="background:#111111;border-radius:8px;padding:17px 16px;color:#fff;margin-bottom:18px;">
             <div style="font-weight:800;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#FFFFFF;">Objetivo</div>
             <div style="font-size:13.5px;line-height:1.55;color:#E9E9E9;margin-top:8px;">{{ plObjetivo }}</div>
@@ -883,6 +914,13 @@ code, kbd, samp, pre {
             Abrir no Google Maps
           </a>
 
+          <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:16px;color:#111111;margin-bottom:3px;">Planta da conferência</div>
+          <div style="font-size:11.5px;color:#7A828C;line-height:1.45;margin-bottom:9px;">Onde são as salas (Edifício B). Toca para ampliar.</div>
+          <div onclick="{{ onPlanta }}" style="border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,.12);margin-bottom:20px;background:#fff;cursor:pointer;position:relative;">
+            <img src="assets/planta.png" alt="Planta da conferência — Auditório, B035, B029, B026" style="width:100%;height:auto;display:block;">
+            <div style="position:absolute;bottom:7px;right:8px;background:rgba(0,0,0,.72);color:#fff;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:4px;">⤢ Ampliar</div>
+          </div>
+
           <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:16px;color:#111111;margin-bottom:9px;">Como chegar</div>
           <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
             <div style="background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:11px 13px;">
@@ -906,8 +944,8 @@ code, kbd, samp, pre {
               <div style="font-size:12.5px;color:#444444;line-height:1.5;">Receção na entrada principal da FEUP. Credenciais entregues à chegada.</div>
             </div>
             <div style="background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:11px 13px;">
-              <div style="font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#111111;margin-bottom:4px;">Salas · Edifício B</div>
-              <div style="font-size:12.5px;color:#444444;line-height:1.5;">Auditório · B035 · B029 · B026. Apresentações: máx. 15 min.</div>
+              <div style="font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#111111;margin-bottom:4px;">Salas · Edifício B (piso 0)</div>
+              <div style="font-size:12.5px;color:#444444;line-height:1.5;">Tudo no <b>Edifício B</b>: plenárias no <b>Auditório</b>; sessões paralelas em <b>B026 · B029 · B035</b> (piso 0, lado a lado). Apresentações: máx. 15 min.</div>
             </div>
             <a href="mailto:info@ptbim.org" style="background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:11px 13px;text-decoration:none;display:block;">
               <div style="font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#111111;margin-bottom:4px;">Contacto</div>
@@ -1100,14 +1138,15 @@ class Component extends DCLogic {
   }
   async addPhotos(id, e) {
     const input = e && (e.target || e.currentTarget);
-    const files = input && input.files ? Array.prototype.slice.call(input.files) : [];
+    const all = input && input.files ? Array.prototype.slice.call(input.files) : [];
     if (input) input.value = '';
+    // aceitar MIME vazio (galeria Android/ColorOS devolve type vazio) ou por extensão
+    const files = all.filter(f => !f.type || /^image\//i.test(f.type) || /\.(jpe?g|png|gif|webp|heic|heif|bmp|tiff?)$/i.test(f.name || ''));
     for (let i = 0; i < files.length; i++) {
       const f = files[i];
-      const okType = !f.type || /^image\//i.test(f.type) || /\.(jpe?g|png|gif|webp|heic|heif|bmp|tiff?)$/i.test(f.name || '');
-      if (!okType) continue; /* aceitar MIME vazio: galeria Android/ColorOS devolve type vazio */
       let base; try { base = await this._resize(f, 1600); } catch (er) { continue; }
-      const edited = await this.photoEditor(base);
+      const label = files.length > 1 ? ('Foto ' + (i + 1) + ' de ' + files.length) : '';
+      const edited = await this.photoEditor(base, label);
       if (!edited) continue;
       const pid = Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + i;
       const list = (this.state.photos[id] || []).concat([{ id: pid, url: edited }]);
@@ -1181,7 +1220,7 @@ class Component extends DCLogic {
     octx.putImageData(odata, 0, 0);
     try { return out.toDataURL('image/jpeg', 0.85); } catch (e) { return null; }
   }
-  photoEditor(dataUrl) {
+  photoEditor(dataUrl, label) {
     return new Promise((resolve) => {
       const self = this;
       const img = new Image();
@@ -1195,7 +1234,7 @@ class Component extends DCLogic {
         const ov = document.createElement('div');
         ov.style.cssText = 'position:fixed;inset:0;z-index:100001;background:#0b0b0b;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Nunito Sans,Arial,sans-serif;';
         const hint = document.createElement('div');
-        hint.textContent = 'Arrasta os cantos até às bordas do ecrã / slide';
+        hint.textContent = (label ? label + ' · ' : '') + 'Arrasta os cantos até às bordas do ecrã / slide';
         hint.style.cssText = 'color:#cfcfcf;font-size:12.5px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;padding:0 24px;text-align:center;';
         const stage = document.createElement('div');
         stage.style.cssText = 'position:relative;width:' + dW + 'px;height:' + dH + 'px;touch-action:none;';
@@ -1215,6 +1254,24 @@ class Component extends DCLogic {
           poly.setAttribute('points', pts.map(p => p[0] + ',' + p[1]).join(' '));
           for (let i = 0; i < 4; i++) { handles[i].style.left = pts[i][0] + 'px'; handles[i].style.top = pts[i][1] + 'px'; }
         };
+        // Lupa: ao arrastar, o dedo tapa o canto — mostra zoom da zona sob o dedo, deslocado.
+        const LZ = 2.6, LS = 118;
+        const loupe = document.createElement('div');
+        loupe.style.cssText = 'position:fixed;width:' + LS + 'px;height:' + LS + 'px;border-radius:50%;border:3px solid #fff;box-shadow:0 6px 22px rgba(0,0,0,.6);background-color:#000;background-repeat:no-repeat;background-image:url(' + dataUrl + ');background-size:' + (dW * LZ) + 'px ' + (dH * LZ) + 'px;pointer-events:none;display:none;z-index:100002;';
+        const cross = document.createElement('div');
+        cross.style.cssText = 'position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border:1.5px solid rgba(255,255,255,.95);border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.6),inset 0 0 0 1px rgba(0,0,0,.6);';
+        loupe.appendChild(cross);
+        ov.appendChild(loupe);
+        const showLoupe = (px, py, cx, cy) => {
+          loupe.style.display = 'block';
+          loupe.style.backgroundPosition = (-(px * LZ - LS / 2)) + 'px ' + (-(py * LZ - LS / 2)) + 'px';
+          let lx = cx - LS / 2, ly = cy - LS - 28;
+          if (ly < 8) ly = cy + 28;
+          lx = Math.max(8, Math.min(window.innerWidth - LS - 8, lx));
+          ly = Math.max(8, Math.min(window.innerHeight - LS - 8, ly));
+          loupe.style.left = lx + 'px'; loupe.style.top = ly + 'px';
+        };
+        const hideLoupe = () => { loupe.style.display = 'none'; };
         for (let i = 0; i < 4; i++) {
           const hd = document.createElement('div');
           hd.style.cssText = 'position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:rgba(255,255,255,0.25);border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.45);touch-action:none;cursor:grab;';
@@ -1222,12 +1279,14 @@ class Component extends DCLogic {
             hd.addEventListener('pointerdown', function (ev) {
               ev.preventDefault();
               try { hd.setPointerCapture(ev.pointerId); } catch (e) {}
+              showLoupe(pts[idx][0], pts[idx][1], ev.clientX, ev.clientY);
               const move = function (e2) {
                 const rect = stage.getBoundingClientRect();
                 pts[idx] = [clamp(e2.clientX - rect.left, dW), clamp(e2.clientY - rect.top, dH)];
                 redraw();
+                showLoupe(pts[idx][0], pts[idx][1], e2.clientX, e2.clientY);
               };
-              const up = function () { hd.removeEventListener('pointermove', move); hd.removeEventListener('pointerup', up); };
+              const up = function () { hideLoupe(); hd.removeEventListener('pointermove', move); hd.removeEventListener('pointerup', up); };
               hd.addEventListener('pointermove', move);
               hd.addEventListener('pointerup', up);
             });
@@ -1466,6 +1525,32 @@ class Component extends DCLogic {
     const p = this.state.picks || {};
     return Object.keys(p).filter(k => p[k]).length;
   }
+  myAgenda() {
+    const b = this.data().blocks, picks = this.state.picks || {};
+    const dayLabel = { qua: 'Quarta · 17 jun', qui: 'Quinta · 18 jun', sex: 'Sexta · 19 jun' };
+    const parse = (t) => { const m = String(t).match(/(\d{1,2})h(\d{0,2})/); return m ? (parseInt(m[1], 10) * 60 + (m[2] ? parseInt(m[2], 10) : 0)) : 9999; };
+    const rows = [];
+    ['qua', 'qui', 'sex'].forEach(d => {
+      const items = [];
+      (b[d] || []).forEach(seg => {
+        if (seg.ty === 'rooms') seg.rooms.forEach(r => r.k.forEach(t => { if (picks[t.id]) items.push({ id: t.id, min: parse(t.t), time: t.t, title: t.ti, room: r.r }); }));
+        else if (seg.ty === 'plenary') { const id = 'pl-' + d + '-' + seg.t; if (picks[id]) items.push({ id, min: parse(seg.t), time: seg.t, title: seg.ti, room: seg.room || 'Auditório' }); }
+      });
+      if (!items.length) return;
+      items.sort((a, c) => a.min - c.min);
+      const cnt = {}; items.forEach(it => { cnt[it.min] = (cnt[it.min] || 0) + 1; });
+      rows.push({ key: 'mad-' + d, isDay: true, label: dayLabel[d] });
+      items.forEach(it => {
+        const conflict = cnt[it.min] > 1;
+        rows.push({
+          key: 'mai-' + it.id, isItem: true, time: it.time, title: it.title, room: it.room, conflict,
+          style: 'display:flex;gap:11px;align-items:flex-start;border-radius:6px;padding:10px 12px;margin-bottom:7px;'
+            + (conflict ? 'background:#F2F2F2;border:1px solid rgba(0,0,0,.15);border-left:4px solid #111111;' : 'background:#fff;border:1px solid rgba(0,0,0,.1);border-left:4px solid #CCCCCC;')
+        });
+      });
+    });
+    return rows;
+  }
   buildMyNotes() {
     const b = this.data().blocks, notes = this.state.notes, out = [];
     const dayLabel = { qua: 'Qua 17', qui: 'Qui 18', sex: 'Sex 19' };
@@ -1496,12 +1581,15 @@ class Component extends DCLogic {
 
     const picks = this.countPicks();
     const myNotes = this.buildMyNotes();
+    const maRows = this.myAgenda();
+    const nPicks = this.countPicks();
 
     return {
       statLine: this.countPicks() + ' na agenda · ' + myNotes.length + ' notas',
       showControls: isAgenda || isGrelha,
       isAgenda, isGrelha, isPlano, isLocal,
       lightboxOpen: !!this.state.lightbox, lightboxUrl: this.state.lightbox || '', closeLightbox: () => this.closeLightbox(),
+      onPlanta: () => this.openLightbox('assets/planta.png'),
       hasShare: !!shareUrl, shareUrl,
       dayLabel: dObj.label || '', dayDate: dObj.date || '',
       chipQua: chip(day === 'qua'), chipQui: chip(day === 'qui'), chipSex: chip(day === 'sex'),
@@ -1520,6 +1608,8 @@ class Component extends DCLogic {
       plObjetivo: ex.objetivo || '', plLente: ex.lente || '', plConflito: ex.conflito || '',
       plTop5: (ex.top5 || []).map((x, i) => Object.assign({ key: 'top-' + i }, x)),
       plNetwork: (ex.networking || []).map((p, i) => ({ key: 'net-' + i, n: p.n, d: p.d, osuffix: p.o ? '· ' + p.o : '' })),
+      myAgenda: maRows, hasMyAgenda: maRows.length > 0, noMyAgenda: maRows.length === 0,
+      myAgendaCount: nPicks + (nPicks === 1 ? ' sessão' : ' sessões'),
       myNotes, hasNotes: myNotes.length > 0, noNotes: myNotes.length === 0,
       notesCountLabel: myNotes.length + (myNotes.length === 1 ? ' nota' : ' notas'),
       onExport: () => this.exportNotes(), onImportFile: (e) => this.importNotes(e)
