@@ -587,13 +587,18 @@ code, kbd, samp, pre {
     .app-bar { padding-top: calc(15px + env(safe-area-inset-top)) !important; }
     .app-nav { padding-bottom: calc(11px + env(safe-area-inset-bottom)) !important; }
   }
-  /* iPad / tablets touch (e qualquer standalone em ecrã grande): app centrada, altura total */
+  /* iPad / tablets touch (e qualquer standalone em ecrã grande): app a usar a largura, layout de tablet */
   @media (min-width: 641px) and (pointer: coarse), (min-width: 641px) and (display-mode: standalone), (min-width: 641px) and (display-mode: fullscreen) {
     .app-backdrop { padding: 0 !important; min-height: 100vh; min-height: 100dvh; align-items: stretch !important; justify-content: center !important; background: #000 !important; }
     .app-bezel { padding: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: none !important; }
-    .app-screen { width: 500px !important; max-width: 100vw !important; height: 100vh !important; height: 100dvh !important; border-radius: 0 !important; }
+    .app-screen { width: min(96vw, 980px) !important; max-width: 100vw !important; height: 100vh !important; height: 100dvh !important; border-radius: 0 !important; }
     .app-bar { padding-top: calc(15px + env(safe-area-inset-top)) !important; }
     .app-nav { padding-bottom: calc(11px + env(safe-area-inset-bottom)) !important; }
+    /* Agenda: sessões em colunas (timetable de tablet); cabeçalhos ocupam a largura toda */
+    .ag-flow { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); column-gap: 14px; align-items: start; }
+    .ag-flow > .ag-span { grid-column: 1 / -1; }
+    /* Plano/Local: largura de leitura confortável, centrada */
+    .view-narrow { max-width: 680px; margin-left: auto; margin-right: auto; }
   }
   /* ===== Splash screen ===== */
   #ptbim-splash{position:fixed;inset:0;z-index:99999;background:#000;display:flex;align-items:center;justify-content:center;transition:opacity .55s ease;font-family:'PP Mori','Nunito Sans',Arial,sans-serif;}
@@ -672,9 +677,9 @@ code, kbd, samp, pre {
 
         <!-- ===== AGENDA ===== -->
         <sc-if value="{{ isAgenda }}" hint-placeholder-val="{{ true }}">
-        <div>
+        <div class="ag-flow">
           <sc-for list="{{ agendaRows }}" as="row" hint-placeholder-count="6">
-            <div>
+            <div class="{{ row.cls }}">
               <sc-if value="{{ row.isBlockHeader }}" hint-placeholder-val="{{ false }}">
                 <div style="display:flex;align-items:baseline;gap:9px;margin:16px 0 10px;">
                   <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:13px;color:#fff;background:#111111;padding:4px 10px;border-radius:5px;letter-spacing:.01em;">{{ row.t }}</div>
@@ -846,7 +851,7 @@ code, kbd, samp, pre {
 
         <!-- ===== PLANO ===== -->
         <sc-if value="{{ isPlano }}" hint-placeholder-val="{{ false }}">
-        <div>
+        <div class="view-narrow">
           <!-- A MINHA AGENDA (por hora) -->
           <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:3px;">
             <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:18px;color:#111111;">A minha agenda</div>
@@ -955,7 +960,7 @@ code, kbd, samp, pre {
 
         <!-- ===== LOCAL ===== -->
         <sc-if value="{{ isLocal }}" hint-placeholder-val="{{ false }}">
-        <div>
+        <div class="view-narrow">
           <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,.1);margin-bottom:14px;">
             <img src="assets/campus_feup.png" alt="Campus FEUP" style="width:100%;height:auto;display:block;filter:grayscale(1) contrast(1.02);">
           </div>
@@ -1483,7 +1488,7 @@ class Component extends DCLogic {
     const picked = this.isPicked(t.id);
     const ch = this.cardChrome(t, att, picked);
     return Object.assign({
-      key: 't-' + t.id, isTalk: true, id: t.id, time: t.t, title: t.ti, authors: t.au,
+      key: 't-' + t.id, isTalk: true, cls: 'ag-card', id: t.id, time: t.t, title: t.ti, authors: t.au,
       showMine: picked, picked, pickFill: picked ? '#fff' : 'none', pickBtnStyle: this.pickBtnStyle(picked), onTogglePick: () => this.togglePick(t.id),
       hasTag: !!t.tag, tagText: t.tag || '',
       hasQ: !!t.q, qText: t.q || '',
@@ -1507,7 +1512,7 @@ class Component extends DCLogic {
     const picked = this.isPicked(id);
     const ch = this.cardChrome(seg, att, picked);
     return Object.assign({
-      key: 'p-' + id, isPlenary: true, id, time: seg.t, title: seg.ti, su: seg.su || '', room: seg.room || 'Auditório',
+      key: 'p-' + id, isPlenary: true, cls: 'ag-card', id, time: seg.t, title: seg.ti, su: seg.su || '', room: seg.room || 'Auditório',
       showMine: picked, picked, pickFill: picked ? '#fff' : 'none', pickBtnStyle: this.pickBtnStyle(picked), onTogglePick: () => this.togglePick(id),
       hasMod: !!seg.mod, mod: seg.mod || '',
       hasTag: !!seg.tag, tagText: seg.tag || '',
@@ -1530,12 +1535,12 @@ class Component extends DCLogic {
       if (seg.ty === 'rooms') {
         const blockPick = seg.rooms.some(r => r.k.some(t => this.isPicked(t.id)));
         if (only && !blockPick) return;
-        rows.push({ key: 'bh-' + si, isBlockHeader: true, t: seg.t, lb: seg.lb });
-        if (seg.rota && !only) rows.push({ key: 'rota-' + si, isRota: true, text: seg.rota });
+        rows.push({ key: 'bh-' + si, isBlockHeader: true, t: seg.t, lb: seg.lb, cls: 'ag-span' });
+        if (seg.rota && !only) rows.push({ key: 'rota-' + si, isRota: true, text: seg.rota, cls: 'ag-span' });
         seg.rooms.forEach((room) => {
           const talks = only ? room.k.filter(t => this.isPicked(t.id)) : room.k;
           if (!talks.length) return;
-          rows.push({ key: 'rh-' + si + '-' + room.r, isRoomHeader: true, room: room.r, track: room.tr, hasMod: !!room.m, mod: room.m || '', roomBadge: this.roomBadge(room.r) });
+          rows.push({ key: 'rh-' + si + '-' + room.r, isRoomHeader: true, room: room.r, track: room.tr, hasMod: !!room.m, mod: room.m || '', roomBadge: this.roomBadge(room.r), cls: 'ag-span' });
           talks.forEach(t => rows.push(this.talkRow(t)));
         });
       } else if (seg.ty === 'plenary') {
@@ -1543,10 +1548,10 @@ class Component extends DCLogic {
         rows.push(this.plenaryRow(seg, this.state.day));
       } else if (seg.ty === 'sep') {
         if (only) return;
-        rows.push({ key: 'sep-' + si, isSep: true, t: seg.t, lb: seg.lb });
+        rows.push({ key: 'sep-' + si, isSep: true, t: seg.t, lb: seg.lb, cls: 'ag-span' });
       } else if (seg.ty === 'social') {
         if (only) return;
-        rows.push({ key: 'soc-' + si, isSocial: true, t: seg.t, lb: seg.lb });
+        rows.push({ key: 'soc-' + si, isSocial: true, t: seg.t, lb: seg.lb, cls: 'ag-span' });
       }
     });
     return rows;
@@ -1676,7 +1681,7 @@ class Component extends DCLogic {
       myNotes, hasNotes: myNotes.length > 0, noNotes: myNotes.length === 0,
       notesCountLabel: myNotes.length + (myNotes.length === 1 ? ' nota' : ' notas'),
       onExport: () => this.exportNotes(), onImportFile: (e) => this.importNotes(e),
-      appVersion: 'v7 · 17 jun 2026',
+      appVersion: 'v8 · 17 jun 2026',
       updateLabel: this.state.updating ? 'A atualizar…' : 'Procurar atualização',
       onCheckUpdate: () => this.checkUpdate()
     };
