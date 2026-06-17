@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="228e95f4-9031-4143-a749-2f607a8141d4"></script>
+</head>
+<body>
+<div id="ptbim-splash">
+  <div class="ps-inner">
+    <svg class="ps-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248.3 58.9"><g><path d="M29.8,11.8c-7.1,0-12.9,2.1-16.5,6V13H0V58.9H13.4v-17c3.7,3.6,9.5,5.6,16,5.6,12.5,0,21.2-7.4,21.2-18.1S42.2,11.8,29.8,11.8Zm-.4,34.7c-6.8,0-12.6-2.2-16.1-6.1l-.9-1V57.9H1V14H12.3v6.6l.8-1.1c3.4-4.3,9.4-6.7,16.7-6.7,11.8,0,19.8,6.7,19.8,16.6S41.5,46.5,29.4,46.5Z" style="fill:#f5f4f0"></path><path d="M25.3,19.7c-7.9,0-13.1,3.8-13.1,9.4v.6c0,5.9,5.2,9.8,12.9,9.8s12.5-3.9,12.5-10.1S32.9,19.7,25.3,19.7Zm-.2,18.8c-7.2,0-11.9-3.5-11.9-8.8v-.6c0-5,4.8-8.4,12.1-8.4s11.3,3.4,11.3,8.7S32.3,38.5,25.1,38.5Z" style="fill:#f5f4f0"></path><path d="M73.5.9,60,5.6V13H50.5v8.8H60V33.1c0,9.3,6,14.1,17.6,14.1a28.6,28.6,0,0,0,10.1-1.5l.3-.2V35.9h-.6a26,26,0,0,1-6.5.8c-5.1,0-7.4-1.9-7.4-6.1V21.8H88V13H73.5ZM87,14v6.8H72.5v9.9c0,4.8,2.7,7.1,8.4,7.1a24.3,24.3,0,0,0,6.1-.7v7.8a28.2,28.2,0,0,1-9.4,1.3C66.5,46.2,61,41.9,61,33.1V20.8H51.5V14H61V6.4L72.5,2.3V14Z" style="fill:#f5f4f0"></path><path d="M138.2,21.7c6.2-1.3,9.1-5.5,9.1-10.1,0-6.5-4.9-11.6-16.4-11.6h-35V45.8h35.2c12.8,0,17.3-6.3,17.3-13S145.1,22.8,138.2,21.7ZM108.9,8.5h18.4c5.2,0,6.5,2.5,6.5,4.7s-1.1,5.3-6.5,5.3H108.9Zm19,28.8h-19V26.4h19c4.9,0,7.1,2.2,7.1,5.3S132.9,37.3,127.9,37.3Z" style="fill:#f5f4f0"></path><rect x="157.1" width="13" height="45.78" style="fill:#f5f4f0"></rect><path d="M228.3,0,216.6,27.6a25.8,25.8,0,0,0-1.6,5h-.1a30.8,30.8,0,0,0-1.6-4.9L201.5,0H182V45.8h11.4V16.7a39.9,39.9,0,0,0-.5-7.9h.4a68.9,68.9,0,0,0,2.4,7.5l12.8,29.5h12.2l13.2-29.6a59.8,59.8,0,0,0,2.7-7.4h.3a53.5,53.5,0,0,0-.6,7.9V45.8h12V0Z" style="fill:#f5f4f0"></path></g></svg>
+    <div class="ps-year">2026</div>
+    <div class="ps-sub">6.º Congresso Português de BIM<br>FEUP · 17–19 jun</div>
+    <div class="ps-rule"></div>
+    <div class="ps-bylabel">app por</div>
+    <img class="ps-wallnut" src="2c5562f6-e788-42d7-ab1b-542798843ef7" alt="Wallnut">
+  </div>
+</div>
+<script>
+(function(){
+  function hide(){ var s=document.getElementById('ptbim-splash'); if(!s||s.classList.contains('hide'))return; s.classList.add('hide'); setTimeout(function(){ if(s&&s.parentNode)s.parentNode.removeChild(s); },650); }
+  var t0=(new Date()).getTime();
+  function tick(){
+    var r=document.getElementById('dc-root');
+    var ready=r&&r.children&&r.children.length>0;
+    var dt=(new Date()).getTime()-t0;
+    if((ready&&dt>1600)||dt>4200){ hide(); return; }
+    setTimeout(tick,120);
+  }
+  setTimeout(tick,200);
+  document.addEventListener('click', hide, true);
+  document.addEventListener('touchstart', hide, true);
+})();
+</script>
+<x-dc>
+
+<helmet>
+<style>/* ============================================================
+   WALLNUT Design + Build — Colors & Type
+   Source of truth: "Design & Brand Guidelines" (v1 DRAFT, 2025)
+   + live marketing site wallnut.pt.
+   
+   Two modes share one palette:
+     • Light (default) — the real default per guidelines:
+       "Architectural Graphite on white ensures maximum legibility,
+       neutrality, and consistency across platforms."
+     • Dark — used on wallnut.pt and in "on-brand" presentation
+       contexts (APR covers, hero sections).
+   
+   ALWAYS use the CSS vars. Never raw hex in product code.
+   ============================================================ */
+
+/* ── Fonts ───────────────────────────────────────────────────
+   Primary : Nunito Sans (per brand guidelines).
+   Secondary (fallback / system) : Arial.
+   Web / Display : PP Mori (Regular + SemiBold).
+   PP Mori is commercial (Pangram Pangram) — we ship woff2 when
+   licensed; otherwise fall back to Nunito Sans / system ui.
+   ──────────────────────────────────────────────────────────── */
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("d14b3cf2-6dc1-43af-84c9-7f8c35910878") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("8ef0414d-4ae3-452b-899a-0e340935ae9a") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("520a2b65-949a-4933-99bc-0765dba430d6") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("be0090e6-fd4a-474d-bd87-e07b9a21053b") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("ece1a362-01f2-4867-9f6e-3785fb6475f3") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("7c7c11c7-f5c4-4c49-8f1b-8d0b566b6acd") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("2e64ec6c-0674-482b-8f03-4203d4b8ed39") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("7e44d8eb-4db5-4a8d-9955-54854e99373b") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("ede33dce-a895-48e1-902e-bab25518dad8") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("bdb04fbb-89d3-46b1-831f-b9ff4d88ee6c") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("7c7c11c7-f5c4-4c49-8f1b-8d0b566b6acd") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("2e64ec6c-0674-482b-8f03-4203d4b8ed39") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("7e44d8eb-4db5-4a8d-9955-54854e99373b") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("ede33dce-a895-48e1-902e-bab25518dad8") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("bdb04fbb-89d3-46b1-831f-b9ff4d88ee6c") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("7c7c11c7-f5c4-4c49-8f1b-8d0b566b6acd") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("2e64ec6c-0674-482b-8f03-4203d4b8ed39") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("7e44d8eb-4db5-4a8d-9955-54854e99373b") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("ede33dce-a895-48e1-902e-bab25518dad8") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("bdb04fbb-89d3-46b1-831f-b9ff4d88ee6c") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("7c7c11c7-f5c4-4c49-8f1b-8d0b566b6acd") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("2e64ec6c-0674-482b-8f03-4203d4b8ed39") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("7e44d8eb-4db5-4a8d-9955-54854e99373b") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("ede33dce-a895-48e1-902e-bab25518dad8") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("bdb04fbb-89d3-46b1-831f-b9ff4d88ee6c") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+@font-face {
+  font-family: "PP Mori";
+  src: url("270c626d-bb25-492d-9923-1bdc0aade2a2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("893bd3d0-b8e2-49de-9e2c-864784ef20ec") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ── Primary brand colours (from guidelines) ────────────── */
+  --architectural-graphite: #1f2a30;   /* default fg / on white */
+  --optimistic-yellow:      #fcc31e;   /* accent / CTA */
+
+  /* ── Secondary palette (from guidelines, 6 colours) ────── */
+  --foundry-iron:    #172025;  /* deepest — for on-dark hero bg */
+  --carbon-concrete: #28363d;  /* card surface on dark */
+  --cobalt-glaze:    #0a4050;  /* architectural blue — accents */
+  --skyline-haze:    #688996;  /* muted blue-grey — secondary text */
+  --blueprint-blue:  #e3ecef;  /* cool near-white — section bg */
+  --ochre-plaster:   #fedf82;  /* soft yellow — tints / highlights */
+
+  /* ── Hover / state overlays on primary ──────────────────── */
+  --yellow-hover:    #ffd94a;
+  --graphite-hover:  #2c3a43;
+
+  /* ── Status (derived; not in brand guidelines) ───────────
+     Kept conservative and on-brand. */
+  --status-success:  #3f7a4f;  /* muted architectural green */
+  --status-warning:  #c98a1a;  /* deeper optimistic yellow */
+  --status-danger:   #a43e2e;  /* warm brick, not a true red */
+  --status-info:     #0a4050;  /* cobalt glaze */
+
+  /* ── Semantic — LIGHT mode (default) ─────────────────────
+     This is the brand's default per guidelines. */
+  --bg:            #ffffff;
+  --bg-section:    var(--blueprint-blue);
+  --bg-card:       #ffffff;
+  --bg-raised:     #f6f8f9;
+  --bg-input:      #ffffff;
+  --bg-overlay:    rgba(0,0,0, 0.6);
+
+  --fg:            var(--architectural-graphite);
+  --fg-heading:    var(--foundry-iron);
+  --fg-muted:      #4a5f6a;   /* WCAG-AA on white — darker than skyline-haze */
+  --fg-on-accent:  var(--architectural-graphite);  /* ink on yellow */
+
+  --border:        rgba(0,0,0, 0.12);
+  --border-strong: rgba(0,0,0, 0.22);
+
+  --accent:        var(--optimistic-yellow);
+  --accent-hover:  var(--yellow-hover);
+  --accent-tint:   rgba(0,0,0, 0.12);
+  --accent-ring:   rgba(0,0,0, 0.40);
+
+  /* ── Typography families ────────────────────────────────── */
+  --font-primary:  "Nunito Sans", Arial, system-ui, sans-serif;
+  --font-display:  "PP Mori", "Nunito Sans", Arial, sans-serif;
+  --font-sans:     var(--font-primary);  /* alias */
+  --font-mono:     ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ── Type scale — editorial (marketing site) ────────────── */
+  --fz-hero:       clamp(48px, 8vw, 112px);   /* @kind font */ /* PP Mori SemiBold */
+  --fz-display:    clamp(40px, 5vw, 72px);     /* @kind font */
+  --fz-h1:         clamp(32px, 3.5vw, 52px);   /* @kind font */
+  --fz-h2:         clamp(24px, 2.4vw, 36px);   /* @kind font */
+  --fz-h3:         20px;
+
+  /* ── Type scale — operational (app + docs) ─────────────── */
+  --fz-body:       15px;       /* Nunito Sans Regular */
+  --fz-small:      13px;
+  --fz-caption:    11px;       /* uppercase + letter-spacing */
+  --fz-label:      12px;
+  --fz-kpi:        28px;
+
+  /* ── Spacing scale ──────────────────────────────────────── */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  24px;
+  --sp-6:  32px;
+  --sp-7:  48px;
+  --sp-8:  64px;
+  --sp-9:  96px;
+  --sp-10: 128px;
+
+  /* ── Radii — architectural, restrained ──────────────────── */
+  --r-sm: 2px;
+  --r-md: 4px;
+  --r-lg: 8px;
+  --r-xl: 12px;
+  --r-pill: 9999px;
+  /* Note: the brand is largely right-angled. Radii > 4px are
+     rare; pills only for tag chips. Cards are square. */
+
+  /* ── Elevation — flat, not dramatic ─────────────────────── */
+  --shadow-1: 0 1px 2px rgba(0,0,0, 0.06);
+  --shadow-2: 0 2px 8px rgba(0,0,0, 0.08);
+  --shadow-3: 0 8px 24px rgba(0,0,0, 0.10);
+  --shadow-hero: 0 40px 80px -20px rgba(0,0,0, 0.35);
+
+  color-scheme: light;
+}
+
+/* ── Dark mode — on-brand hero / app / APR covers ─────────── */
+[data-theme="dark"] {
+  --bg:            var(--foundry-iron);
+  --bg-section:    var(--foundry-iron);
+  --bg-card:       var(--carbon-concrete);
+  --bg-raised:     #334248;
+  --bg-input:      #1a252b;
+
+  --fg:            #e3ecef;                 /* blueprint blue */
+  --fg-heading:    #ffffff;
+  --fg-muted:      var(--skyline-haze);
+
+  --border:        rgba(227, 236, 239, 0.12);
+  --border-strong: rgba(227, 236, 239, 0.22);
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-3: 0 12px 32px rgba(0, 0, 0, 0.45);
+
+  color-scheme: dark;
+}
+
+/* ── Base element styles ─────────────────────────────────── */
+html, body {
+  font-family: var(--font-primary);
+  font-size: var(--fz-body);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--fg-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0;
+}
+h1 { font-size: var(--fz-h1); }
+h2 { font-size: var(--fz-h2); }
+h3 { font-size: var(--fz-h3); letter-spacing: -0.01em; }
+
+p  { margin: 0; }
+
+code, kbd, samp, pre {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+.caption {
+  font-size: var(--fz-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--fg-muted);
+}
+
+.slogan {
+  /* "Building in a Better Way"™
+     Two valid forms (per guidelines):
+       A. single line
+       B. one word per line, right- or left-aligned by context
+     Use PP Mori SemiBold; never italicise; never change colour
+     of individual words. */
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+</style>
+<script src="e2b0c3bf-151a-41e1-8a94-95fc254d7e58"></script>
+<script src="77cf2dc3-61bc-44f2-803f-fb6a58f021d0"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ptBIM 2026">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #000000; }
+  /* ocultar chrome de dev do empacotador no deploy (persiste após o rewrite do runtime) */
+  #__bundler_loading, #__bundler_err, #__bundler_thumbnail { display: none !important; }
+  .scroll-area::-webkit-scrollbar { width: 0; height: 0; }
+  .scroll-area { scrollbar-width: none; }
+  textarea.nt { font-family: 'Nunito Sans', Arial, sans-serif; }
+  textarea.nt:focus { outline: none; border-color: #111111 !important; }
+  @media (display-mode: standalone), (display-mode: fullscreen) {
+    .app-backdrop { background: #000000 !important; padding: 0 !important; min-height: 100vh; align-items: stretch !important; }
+    .app-bezel { padding: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: none !important; }
+    .app-screen { width: 100vw !important; height: 100vh !important; border-radius: 0 !important; }
+  }
+  /* ===== Splash screen ===== */
+  #ptbim-splash{position:fixed;inset:0;z-index:99999;background:#000;display:flex;align-items:center;justify-content:center;transition:opacity .55s ease;font-family:'PP Mori','Nunito Sans',Arial,sans-serif;}
+  #ptbim-splash.hide{opacity:0;pointer-events:none;}
+  #ptbim-splash .ps-inner{display:flex;flex-direction:column;align-items:center;padding:32px;text-align:center;animation:ps-rise .8s cubic-bezier(.2,.7,.2,1);}
+  @keyframes ps-rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  #ptbim-splash .ps-logo{width:min(62vw,250px);height:auto;display:block;}
+  #ptbim-splash .ps-year{font-weight:600;font-size:clamp(38px,11vw,56px);color:#fff;letter-spacing:-.03em;line-height:.95;margin-top:8px;}
+  #ptbim-splash .ps-sub{font-family:'Nunito Sans',Arial,sans-serif;font-size:12px;letter-spacing:.05em;color:#8f8f8f;margin-top:15px;font-weight:600;line-height:1.5;}
+  #ptbim-splash .ps-rule{width:42px;height:2px;background:#2c2c2c;margin:28px 0 18px;}
+  #ptbim-splash .ps-bylabel{font-family:'Nunito Sans',Arial,sans-serif;font-size:9px;letter-spacing:.36em;text-transform:uppercase;color:#666;font-weight:700;margin-bottom:11px;}
+  #ptbim-splash .ps-wallnut{height:21px;width:auto;opacity:.96;display:block;}
+  /* ===== Photo lightbox ===== */
+  .ptbim-lightbox{position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;padding:16px;}
+  .ptbim-lightbox img{max-width:100%;max-height:86vh;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.6);}
+  .ptbim-lightbox .lb-close{position:absolute;top:14px;right:18px;color:#fff;font-size:32px;line-height:1;font-weight:300;cursor:pointer;user-select:none;}
+</style>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+  }
+</script>
+</helmet>
+<div class="app-backdrop" style="background:#000000;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px;font-family:'Nunito Sans',Arial,sans-serif;">
+  <div class="app-bezel" style="background:#000000;padding:11px;border-radius:48px;box-shadow:0 30px 80px rgba(0,0,0,.55);">
+    <div class="app-screen" style="width:448px;height:968px;background:#F4F4F5;border-radius:38px;overflow:hidden;display:flex;flex-direction:column;position:relative;">
+
+      <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
+        <div class="ptbim-lightbox" onclick="{{ closeLightbox }}">
+          <div class="lb-close">×</div>
+          <img src="{{ lightboxUrl }}" alt="">
+        </div>
+      </sc-if>
+
+      <!-- APP BAR -->
+      <div style="background:#111111;color:#fff;padding:15px 18px 12px;flex-shrink:0;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <div>
+            <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:20px;letter-spacing:-.01em;">6.º ptBIM</div>
+            <div style="font-size:11px;color:#AAAAAA;font-weight:600;letter-spacing:.03em;margin-top:1px;">FEUP · 17–19 jun 2026 · P. Vieira</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+            <img src="2c5562f6-e788-42d7-ab1b-542798843ef7" alt="Wallnut" style="height:20px;width:auto;display:block;opacity:.96;">
+            <div style="font-size:10px;color:#9C9C9C;font-weight:700;letter-spacing:.02em;">{{ statLine }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY CHIPS + FILTER -->
+      <sc-if value="{{ showControls }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#fff;border-bottom:1px solid rgba(0,0,0,.1);padding:9px 14px 10px;flex-shrink:0;">
+          <div style="display:flex;gap:6px;">
+            <div onclick="{{ dayQua }}" style="{{ chipQua }}">QUA 17</div>
+            <div onclick="{{ dayQui }}" style="{{ chipQui }}">QUI 18</div>
+            <div onclick="{{ daySex }}" style="{{ chipSex }}">SEX 19</div>
+          </div>
+          <sc-if value="{{ isAgenda }}" hint-placeholder-val="{{ true }}">
+            <div onclick="{{ toggleMine }}" style="{{ mineToggleStyle }}">
+              <span style="{{ mineDotStyle }}"></span>{{ mineToggleLabel }}
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- CONTENT -->
+      <div class="scroll-area" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:15px 14px 24px;">
+
+        <!-- ===== AGENDA ===== -->
+        <sc-if value="{{ isAgenda }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <sc-for list="{{ agendaRows }}" as="row" hint-placeholder-count="6">
+            <div>
+              <sc-if value="{{ row.isBlockHeader }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:baseline;gap:9px;margin:16px 0 10px;">
+                  <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:13px;color:#fff;background:#111111;padding:4px 10px;border-radius:5px;letter-spacing:.01em;">{{ row.t }}</div>
+                  <div style="font-weight:800;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#7C7C7C;">{{ row.lb }}</div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ row.isRota }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#111111;border-radius:5px;padding:11px 13px;margin-bottom:10px;">
+                  <div style="font-weight:800;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#FFFFFF;margin-bottom:3px;">Conflito · rota recomendada</div>
+                  <div style="font-size:12.5px;line-height:1.45;color:#E9E9E9;">{{ row.text }}</div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ row.isRoomHeader }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:8px;margin:12px 0 8px;">
+                  <span style="{{ row.roomBadge }}">{{ row.room }}</span>
+                  <div style="font-weight:800;font-size:10.5px;letter-spacing:.04em;color:#111111;line-height:1.2;">{{ row.track }}</div>
+                </div>
+                <sc-if value="{{ row.hasMod }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;color:#9A9A9A;margin:-4px 0 8px 2px;font-style:italic;">mod. {{ row.mod }}</div></sc-if>
+              </sc-if>
+
+              <sc-if value="{{ row.isTalk }}" hint-placeholder-val="{{ true }}">
+                <div style="{{ row.cardStyle }}">
+                  <sc-if value="{{ row.showMine }}" hint-placeholder-val="{{ false }}"><div style="{{ row.mineStyle }}">★ A minha escolha</div></sc-if>
+                  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+                    <div style="{{ row.timeStyle }}">{{ row.time }}</div>
+                    <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
+                      <sc-if value="{{ row.hasTag }}" hint-placeholder-val="{{ false }}"><div style="{{ row.tagStyle }}">{{ row.tagText }}</div></sc-if>
+                      <div onclick="{{ row.onToggleAttended }}" style="{{ row.attendBtnStyle }}"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>{{ row.attendLabel }}</div>
+                    </div>
+                  </div>
+                  <div style="{{ row.titleStyle }}">{{ row.title }}</div>
+                  <div style="{{ row.authorsStyle }}">{{ row.authors }}</div>
+                  <sc-if value="{{ row.hasQ }}" hint-placeholder-val="{{ false }}">
+                    <div style="{{ row.qStyle }}"><span style="font-weight:800;color:{{ row.qAccent }};">Q&nbsp;</span>{{ row.qText }}</div>
+                  </sc-if>
+                  <sc-if value="{{ row.attended }}" hint-placeholder-val="{{ false }}">
+                    <div onclick="{{ row.onToggleNote }}" style="{{ row.noteBtnStyle }}">{{ row.noteBtnLabel }}</div>
+                    <sc-if value="{{ row.noteOpen }}" hint-placeholder-val="{{ false }}">
+                      <textarea class="nt" placeholder="As tuas notas sobre esta sessão…" value="{{ row.noteValue }}" oninput="{{ row.onNoteInput }}" onchange="{{ row.onNoteInput }}" style="width:100%;margin-top:8px;min-height:74px;resize:vertical;border:1px solid rgba(0,0,0,.2);border-radius:5px;padding:9px 10px;font-size:13px;color:#1A1A1A;line-height:1.45;background:#FCFCFC;"></textarea>
+                    </sc-if>
+                    <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:9px;">
+                      <label style="display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:11px;letter-spacing:.02em;padding:6px 11px;border-radius:5px;cursor:pointer;user-select:none;background:#fff;border:1px dashed rgba(0,0,0,.3);color:#555555;position:relative;">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                        Câmara
+                        <input type="file" accept="image/*" capture="environment" onchange="{{ row.onAddPhoto }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
+                      </label>
+                      <label style="display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:11px;letter-spacing:.02em;padding:6px 11px;border-radius:5px;cursor:pointer;user-select:none;background:#fff;border:1px dashed rgba(0,0,0,.3);color:#555555;position:relative;">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="M21 15l-5-5L5 21"></path></svg>
+                        Galeria
+                        <input type="file" accept="image/*" multiple onchange="{{ row.onAddPhoto }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
+                      </label>
+                      <sc-for list="{{ row.photos }}" as="ph" hint-placeholder-count="0">
+                        <div style="position:relative;width:54px;height:54px;border-radius:6px;overflow:hidden;border:1px solid rgba(0,0,0,.15);flex-shrink:0;">
+                          <img src="{{ ph.url }}" onclick="{{ ph.onOpen }}" style="width:100%;height:100%;object-fit:cover;cursor:pointer;display:block;">
+                          <div onclick="{{ ph.onRemove }}" style="position:absolute;top:2px;right:2px;width:17px;height:17px;background:rgba(0,0,0,.72);color:#fff;border-radius:4px;font-size:13px;line-height:15px;text-align:center;cursor:pointer;font-weight:600;">×</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ row.isPlenary }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ row.cardStyle }}">
+                  <sc-if value="{{ row.showMine }}" hint-placeholder-val="{{ false }}"><div style="{{ row.mineStyle }}">★ A minha escolha</div></sc-if>
+                  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+                    <div style="{{ row.timeStyle }}">{{ row.time }}</div>
+                    <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
+                      <sc-if value="{{ row.hasTag }}" hint-placeholder-val="{{ false }}"><div style="{{ row.tagStyle }}">{{ row.tagText }}</div></sc-if>
+                      <div onclick="{{ row.onToggleAttended }}" style="{{ row.attendBtnStyle }}"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>{{ row.attendLabel }}</div>
+                    </div>
+                  </div>
+                  <div style="font-weight:700;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#9C9C9C;margin-top:8px;">Plenária · {{ row.room }}</div>
+                  <div style="{{ row.titleStyle }}">{{ row.title }}</div>
+                  <div style="{{ row.authorsStyle }}">{{ row.su }}</div>
+                  <sc-if value="{{ row.hasMod }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#9A9A9A;margin-top:3px;font-style:italic;">mod. {{ row.mod }}</div></sc-if>
+                  <sc-if value="{{ row.hasQ }}" hint-placeholder-val="{{ false }}"><div style="{{ row.qStyle }}"><span style="font-weight:800;color:{{ row.qAccent }};">Q&nbsp;</span>{{ row.qText }}</div></sc-if>
+                  <sc-if value="{{ row.attended }}" hint-placeholder-val="{{ false }}">
+                    <div onclick="{{ row.onToggleNote }}" style="{{ row.noteBtnStyle }}">{{ row.noteBtnLabel }}</div>
+                    <sc-if value="{{ row.noteOpen }}" hint-placeholder-val="{{ false }}">
+                      <textarea class="nt" placeholder="As tuas notas sobre esta sessão…" value="{{ row.noteValue }}" oninput="{{ row.onNoteInput }}" onchange="{{ row.onNoteInput }}" style="width:100%;margin-top:8px;min-height:74px;resize:vertical;border:1px solid rgba(0,0,0,.2);border-radius:5px;padding:9px 10px;font-size:13px;color:#1A1A1A;line-height:1.45;background:#FCFCFC;"></textarea>
+                    </sc-if>
+                    <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:9px;">
+                      <label style="display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:11px;letter-spacing:.02em;padding:6px 11px;border-radius:5px;cursor:pointer;user-select:none;background:#fff;border:1px dashed rgba(0,0,0,.3);color:#555555;position:relative;">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                        Câmara
+                        <input type="file" accept="image/*" capture="environment" onchange="{{ row.onAddPhoto }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
+                      </label>
+                      <label style="display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:11px;letter-spacing:.02em;padding:6px 11px;border-radius:5px;cursor:pointer;user-select:none;background:#fff;border:1px dashed rgba(0,0,0,.3);color:#555555;position:relative;">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="M21 15l-5-5L5 21"></path></svg>
+                        Galeria
+                        <input type="file" accept="image/*" multiple onchange="{{ row.onAddPhoto }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
+                      </label>
+                      <sc-for list="{{ row.photos }}" as="ph" hint-placeholder-count="0">
+                        <div style="position:relative;width:54px;height:54px;border-radius:6px;overflow:hidden;border:1px solid rgba(0,0,0,.15);flex-shrink:0;">
+                          <img src="{{ ph.url }}" onclick="{{ ph.onOpen }}" style="width:100%;height:100%;object-fit:cover;cursor:pointer;display:block;">
+                          <div onclick="{{ ph.onRemove }}" style="position:absolute;top:2px;right:2px;width:17px;height:17px;background:rgba(0,0,0,.72);color:#fff;border-radius:4px;font-size:13px;line-height:15px;text-align:center;cursor:pointer;font-weight:600;">×</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ row.isSep }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:10px;margin:6px 2px;color:#9A9A9A;">
+                  <span style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:12px;min-width:42px;">{{ row.t }}</span>
+                  <span style="flex:1;height:1px;background:rgba(0,0,0,.12);"></span>
+                  <span style="font-size:11.5px;font-weight:700;letter-spacing:.02em;">{{ row.lb }}</span>
+                  <span style="flex:1;height:1px;background:rgba(0,0,0,.12);"></span>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ row.isSocial }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#F2F2F2;border:1px solid rgba(0,0,0,.25);border-radius:6px;padding:11px 14px;margin:8px 0;display:flex;align-items:center;gap:11px;">
+                  <span style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:18px;color:#111111;">{{ row.t }}</span>
+                  <span style="font-size:12.5px;font-weight:700;color:#111111;line-height:1.3;">{{ row.lb }}</span>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        </sc-if>
+
+        <!-- ===== GRELHA ===== -->
+        <sc-if value="{{ isGrelha }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:4px;">
+            <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:18px;color:#111111;">{{ dayLabel }}</div>
+            <div style="font-size:11px;font-weight:700;color:#9A9A9A;">{{ dayDate }}</div>
+          </div>
+          <div style="font-size:11.5px;color:#777777;margin-bottom:12px;line-height:1.4;">Esquema das salas. Toca numa célula para abrir a agenda. <span style="color:#111111;font-weight:700;">★ = a tua escolha.</span></div>
+
+          <div style="display:grid;grid-template-columns:30px 1fr 1fr 1fr 1fr;gap:4px;margin-bottom:5px;position:sticky;top:0;">
+            <div></div>
+            <div style="text-align:center;font-weight:800;font-size:9px;letter-spacing:.03em;color:#fff;background:#111111;padding:5px 2px;border-radius:4px;">AUD</div>
+            <div style="text-align:center;font-weight:800;font-size:9px;letter-spacing:.03em;color:#fff;background:#111111;padding:5px 2px;border-radius:4px;">B035</div>
+            <div style="text-align:center;font-weight:800;font-size:9px;letter-spacing:.03em;color:#fff;background:#111111;padding:5px 2px;border-radius:4px;">B029</div>
+            <div style="text-align:center;font-weight:800;font-size:9px;letter-spacing:.03em;color:#fff;background:#111111;padding:5px 2px;border-radius:4px;">B026</div>
+          </div>
+
+          <sc-for list="{{ gridRows }}" as="g" hint-placeholder-count="5">
+            <div>
+              <sc-if value="{{ g.isGrid }}" hint-placeholder-val="{{ true }}">
+                <div style="display:grid;grid-template-columns:30px 1fr 1fr 1fr 1fr;gap:4px;margin-bottom:4px;">
+                  <div style="display:flex;align-items:center;justify-content:flex-end;padding-right:3px;font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:9.5px;color:#111111;writing-mode:vertical-rl;transform:rotate(180deg);">{{ g.t }}</div>
+                  <sc-for list="{{ g.cells }}" as="c" hint-placeholder-count="4">
+                    <div onclick="{{ c.onTap }}" style="{{ c.style }}">
+                      <sc-if value="{{ c.mine }}" hint-placeholder-val="{{ false }}"><div style="font-size:9px;color:#111111;font-weight:800;margin-bottom:2px;">★</div></sc-if>
+                      <div style="{{ c.txtStyle }}">{{ c.track }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ g.isBand }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ g.bandStyle }}">
+                  <span style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:11px;opacity:.9;">{{ g.t }}</span>
+                  <span style="font-size:11px;font-weight:700;line-height:1.3;">{{ g.lb }}</span>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        </sc-if>
+
+        <!-- ===== PLANO ===== -->
+        <sc-if value="{{ isPlano }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="background:#111111;border-radius:8px;padding:17px 16px;color:#fff;margin-bottom:18px;">
+            <div style="font-weight:800;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#FFFFFF;">Objetivo</div>
+            <div style="font-size:13.5px;line-height:1.55;color:#E9E9E9;margin-top:8px;">{{ plObjetivo }}</div>
+            <div style="background:rgba(0,0,0,.18);border-left:3px solid #111111;border-radius:0 4px 4px 0;padding:11px 13px;margin-top:13px;font-size:12.5px;line-height:1.55;color:#DBDBDB;font-style:italic;">{{ plLente }}</div>
+          </div>
+
+          <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:18px;color:#111111;margin-bottom:11px;">As 5 a não perder</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+            <sc-for list="{{ plTop5 }}" as="x" hint-placeholder-count="5">
+              <div style="display:flex;gap:11px;align-items:flex-start;background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:10px 12px;">
+                <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:12px;color:#111111;white-space:nowrap;min-width:78px;">{{ x.d }}</div>
+                <div style="font-size:13px;color:#1A1A1A;line-height:1.35;font-weight:700;">{{ x.t }} <span style="color:#888;font-weight:400;">— {{ x.s }}</span></div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="background:#111111;border-radius:8px;padding:14px 15px;margin-bottom:20px;">
+            <div style="font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#FFFFFF;">Conflito · Quinta tarde</div>
+            <div style="font-size:13px;line-height:1.5;color:#E9E9E9;margin-top:5px;">{{ plConflito }}</div>
+          </div>
+
+          <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:18px;color:#111111;margin-bottom:3px;">Networking</div>
+          <div style="font-weight:800;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#111111;margin-bottom:12px;">Quem abordar</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:22px;">
+            <sc-for list="{{ plNetwork }}" as="p" hint-placeholder-count="5">
+              <div style="background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:11px 13px;">
+                <div style="font-weight:700;font-size:13.5px;color:#1A1A1A;">{{ p.n }} <span style="color:#9A9A9A;font-weight:600;">{{ p.osuffix }}</span></div>
+                <div style="font-size:12px;color:#555;line-height:1.45;margin-top:2px;">{{ p.d }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;">
+            <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:18px;color:#111111;">As minhas notas</div>
+            <div style="font-size:11px;font-weight:700;color:#9A9A9A;">{{ notesCountLabel }}</div>
+          </div>
+          <div style="font-size:11.5px;color:#777777;line-height:1.45;margin-bottom:10px;">As notas ficam só neste telemóvel. Exporta para guardar um ficheiro privado (backup) ou levar para outro dispositivo.</div>
+          <div style="display:flex;gap:8px;margin-bottom:14px;">
+            <div onclick="{{ onExport }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#111111;color:#fff;font-weight:800;font-size:12px;letter-spacing:.02em;padding:11px 0;border-radius:7px;cursor:pointer;user-select:none;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></svg>
+              Exportar ficheiro
+            </div>
+            <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#fff;border:1px solid rgba(0,0,0,.22);color:#111111;font-weight:800;font-size:12px;letter-spacing:.02em;padding:11px 0;border-radius:7px;cursor:pointer;user-select:none;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 9l5-5 5 5"></path><path d="M12 4v12"></path></svg>
+              Importar
+              <input type="file" accept=".json,application/json" onchange="{{ onImportFile }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
+            </label>
+          </div>
+          <sc-if value="{{ hasNotes }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:9px;">
+              <sc-for list="{{ myNotes }}" as="n" hint-placeholder-count="2">
+                <div style="background:#fff;border:1px solid rgba(0,0,0,.1);border-left:4px solid #111111;border-radius:6px;padding:11px 13px;">
+                  <div style="font-size:10px;font-weight:800;letter-spacing:.04em;color:#9A9A9A;text-transform:uppercase;">{{ n.meta }}</div>
+                  <div style="font-weight:700;font-size:13px;color:#1A1A1A;line-height:1.3;margin-top:3px;">{{ n.title }}</div>
+                  <div style="font-size:12.5px;color:#444;line-height:1.5;margin-top:6px;white-space:pre-wrap;">{{ n.text }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ noNotes }}" hint-placeholder-val="{{ true }}">
+            <div style="background:#fff;border:1px dashed rgba(0,0,0,.2);border-radius:6px;padding:18px 14px;text-align:center;font-size:12.5px;color:#888888;line-height:1.5;">Ainda sem notas. Abre uma sessão na Agenda e toca em <b style="color:#111111;">+ Nota</b> para guardar ideias — aparecem aqui compiladas.</div>
+          </sc-if>
+
+          <div style="text-align:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#9A9A9A;margin-top:24px;font-weight:700;">6.º ptBIM · FEUP · 17–19 jun 2026</div>
+        </div>
+        </sc-if>
+
+        <!-- ===== LOCAL ===== -->
+        <sc-if value="{{ isLocal }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,.1);margin-bottom:14px;">
+            <img src="assets/campus_feup.png" alt="Campus FEUP" style="width:100%;height:auto;display:block;filter:grayscale(1) contrast(1.02);">
+          </div>
+
+          <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:19px;color:#111111;line-height:1.15;">FEUP — Faculdade de Engenharia</div>
+          <div style="font-size:12.5px;color:#555555;line-height:1.5;margin-top:5px;">Universidade do Porto · Rua Dr. Roberto Frias, 4200-465 Porto</div>
+
+          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Faculdade+de+Engenharia+da+Universidade+do+Porto%2C+Rua+Dr.+Roberto+Frias%2C+Porto" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#111111;color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.02em;padding:12px 0;border-radius:7px;margin:13px 0 20px;text-decoration:none;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Abrir no Google Maps
+          </a>
+
+          <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:16px;color:#111111;margin-bottom:9px;">Como chegar</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+            <div style="background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:11px 13px;">
+              <div style="font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#111111;margin-bottom:4px;">Metro · Linha D (amarela)</div>
+              <div style="font-size:12.5px;color:#444444;line-height:1.5;">Pólo Universitário · <b>IPO</b> (mais próxima) · Hospital de São João</div>
+            </div>
+            <div style="background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:11px 13px;">
+              <div style="font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#111111;margin-bottom:4px;">Autocarro · STCP</div>
+              <div style="font-size:12.5px;color:#444444;line-height:1.5;">Linhas 204 · 300 · 301 · 803</div>
+            </div>
+            <div style="background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:11px 13px;">
+              <div style="font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#111111;margin-bottom:4px;">Carro · estacionamento</div>
+              <div style="font-size:12.5px;color:#444444;line-height:1.5;">Parque interno reservado a staff. Usar parque pago exterior, adjacente ao campus.</div>
+            </div>
+          </div>
+
+          <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:16px;color:#111111;margin-bottom:9px;">No local</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+            <div style="background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:11px 13px;">
+              <div style="font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#111111;margin-bottom:4px;">Check-in</div>
+              <div style="font-size:12.5px;color:#444444;line-height:1.5;">Receção na entrada principal da FEUP. Credenciais entregues à chegada.</div>
+            </div>
+            <div style="background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:11px 13px;">
+              <div style="font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#111111;margin-bottom:4px;">Salas · Edifício B</div>
+              <div style="font-size:12.5px;color:#444444;line-height:1.5;">Auditório · B035 · B029 · B026. Apresentações: máx. 15 min.</div>
+            </div>
+            <a href="mailto:info@ptbim.org" style="background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:11px 13px;text-decoration:none;display:block;">
+              <div style="font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#111111;margin-bottom:4px;">Contacto</div>
+              <div style="font-size:12.5px;color:#444444;line-height:1.5;">info@ptbim.org</div>
+            </a>
+          </div>
+
+          <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:16px;color:#111111;margin-bottom:9px;">Oradores convidados</div>
+          <div style="background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:12px 14px;margin-bottom:20px;font-size:12.5px;color:#444444;line-height:1.7;">
+            <b style="color:#1A1A1A;">Patrícia Gonçalves Costa</b> · Sec. de Estado da Habitação<br>
+            <b style="color:#1A1A1A;">Milena Feustel</b> · Presidente, EU BIM Task Group<br>
+            <b style="color:#1A1A1A;">Mark Baldwin</b> · Lucerne UAS<br>
+            <b style="color:#1A1A1A;">Agustí Jardí Margalef</b> · APOGEA<br>
+            <b style="color:#1A1A1A;">Michelangelo Cianciulli</b> · ACCA software
+          </div>
+
+          <div style="font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:16px;color:#111111;margin-bottom:9px;">Documentos & site</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:22px;">
+            <a href="https://ptbim.org/wp-content/uploads/2026/06/ptBIM26_programa_vf.pdf" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:6px;padding:12px 13px;text-decoration:none;color:#1A1A1A;font-weight:700;font-size:13px;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"></path></svg>
+              Programa final (PDF)
+            </a>
+            <a href="https://ptbim.org" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:6px;padding:12px 13px;text-decoration:none;color:#1A1A1A;font-weight:700;font-size:13px;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z"></path></svg>
+              ptbim.org
+            </a>
+          </div>
+
+          <sc-if value="{{ hasShare }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#111111;border-radius:8px;padding:18px 16px;text-align:center;margin-bottom:14px;">
+            <div style="font-weight:800;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#9A9A9A;margin-bottom:12px;">Partilhar com colegas</div>
+            <div style="display:inline-block;background:#fff;padding:11px;border-radius:8px;"><img src="qr.png" alt="QR para abrir a app" style="width:180px;height:180px;display:block;"></div>
+            <div style="font-size:12px;color:#E9E9E9;line-height:1.5;margin-top:13px;">Aponta a câmara para o código<br>ou abre <b style="color:#fff;">{{ shareUrl }}</b></div>
+            <div style="font-size:11px;color:#8f8f8f;line-height:1.5;margin-top:9px;">No telemóvel: menu do browser → <b style="color:#bbb;">Adicionar ao ecrã principal</b> para instalar a app.</div>
+          </div>
+          </sc-if>
+
+          <div style="text-align:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#9A9A9A;margin-top:8px;font-weight:700;">6.º ptBIM · FEUP · 17–19 jun 2026</div>
+        </div>
+        </sc-if>
+
+      </div>
+
+      <!-- BOTTOM NAV -->
+      <div style="background:#fff;border-top:1px solid rgba(0,0,0,.12);display:flex;padding:9px 8px 11px;flex-shrink:0;">
+        <div onclick="{{ navAgenda }}" style="{{ navAgendaStyle }}">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+          <span>Agenda</span>
+        </div>
+        <div onclick="{{ navGrelha }}" style="{{ navGrelhaStyle }}">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M3 15h18M9 3v18M15 3v18"></path></svg>
+          <span>Grelha</span>
+        </div>
+        <div onclick="{{ navPlano }}" style="{{ navPlanoStyle }}">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2"></polygon></svg>
+          <span>Plano</span>
+        </div>
+        <div onclick="{{ navLocal }}" style="{{ navLocalStyle }}">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span>Local</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:500,&quot;height&quot;:1020}}">
+class Component extends DCLogic {
+  state = { view: 'agenda', day: 'qua', onlyMine: false, openNotes: {}, notes: {}, attended: {}, photos: {}, lightbox: null, ready: false };
+
+  componentDidMount() {
+    try { this.setState({ notes: JSON.parse(localStorage.getItem('ptbim2026.notes') || '{}'), attended: JSON.parse(localStorage.getItem('ptbim2026.attended') || '{}') }); } catch (e) {}
+    this._loadPhotos();
+    this._waitData();
+  }
+
+  toggleAttended(id) {
+    this.setState(s => {
+      const attended = Object.assign({}, s.attended, { [id]: !s.attended[id] });
+      if (!attended[id]) delete attended[id];
+      try { localStorage.setItem('ptbim2026.attended', JSON.stringify(attended)); } catch (e) {}
+      // assistida revela o botão "+ Nota" (sem abrir já o campo); desmarcar fecha qualquer nota aberta
+      const openNotes = Object.assign({}, s.openNotes, { [id]: false });
+      return { attended, openNotes };
+    });
+  }
+  countAttended() { return Object.keys(this.state.attended || {}).filter(k => this.state.attended[k]).length; }
+  _waitData() {
+    if (window.PTBIM_DATA) { this.setState({ ready: true }); return; }
+    let n = 0;
+    const iv = setInterval(() => {
+      if (window.PTBIM_DATA || n++ > 40) { clearInterval(iv); this.setState({ ready: true }); }
+    }, 50);
+  }
+  data() { return window.PTBIM_DATA || { days: [], blocks: {}, extras: {} }; }
+
+  toggleNote(id) {
+    this.setState(s => ({ openNotes: Object.assign({}, s.openNotes, { [id]: !s.openNotes[id] }) }));
+  }
+  setNote(id, val) {
+    this.setState(s => {
+      const notes = Object.assign({}, s.notes, { [id]: val });
+      try { localStorage.setItem('ptbim2026.notes', JSON.stringify(notes)); } catch (e) {}
+      return { notes };
+    });
+  }
+
+  // ---- Fotos (câmara/galeria) guardadas no próprio aparelho (IndexedDB) ----
+  _db() {
+    if (this._dbp) return this._dbp;
+    this._dbp = new Promise((resolve, reject) => {
+      try {
+        const req = indexedDB.open('ptbim2026', 1);
+        req.onupgradeneeded = () => { const db = req.result; if (!db.objectStoreNames.contains('photos')) db.createObjectStore('photos'); };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      } catch (e) { reject(e); }
+    });
+    return this._dbp;
+  }
+  async _loadPhotos() {
+    try {
+      const db = await this._db();
+      const photos = await new Promise((resolve) => {
+        const store = db.transaction('photos', 'readonly').objectStore('photos');
+        const out = {}; const cur = store.openCursor();
+        cur.onsuccess = () => { const c = cur.result; if (c) { if (Array.isArray(c.value) && c.value.length) out[c.key] = c.value; c.continue(); } else resolve(out); };
+        cur.onerror = () => resolve(out);
+      });
+      this.setState({ photos });
+    } catch (e) {}
+  }
+  async _savePhotos(id, arr) {
+    try { const db = await this._db(); const store = db.transaction('photos', 'readwrite').objectStore('photos'); if (arr && arr.length) store.put(arr, id); else store.delete(id); } catch (e) {}
+  }
+  _resize(file, max) {
+    max = max || 1500;
+    return new Promise((resolve, reject) => {
+      const fr = new FileReader();
+      fr.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          let w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+          const scale = Math.min(1, max / Math.max(w, h));
+          w = Math.round(w * scale); h = Math.round(h * scale);
+          const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+          cv.getContext('2d').drawImage(img, 0, 0, w, h);
+          try { resolve(cv.toDataURL('image/jpeg', 0.82)); } catch (e) { resolve(fr.result); }
+        };
+        img.onerror = () => resolve(fr.result);
+        img.src = fr.result;
+      };
+      fr.onerror = reject;
+      fr.readAsDataURL(file);
+    });
+  }
+  async addPhotos(id, e) {
+    const input = e && (e.target || e.currentTarget);
+    const files = input && input.files ? Array.prototype.slice.call(input.files) : [];
+    if (input) input.value = '';
+    for (let i = 0; i < files.length; i++) {
+      const f = files[i];
+      if (!/^image\//.test(f.type)) continue;
+      let base; try { base = await this._resize(f, 1600); } catch (er) { continue; }
+      const edited = await this.photoEditor(base);
+      if (!edited) continue;
+      const pid = Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + i;
+      const list = (this.state.photos[id] || []).concat([{ id: pid, url: edited }]);
+      const photos = Object.assign({}, this.state.photos, { [id]: list });
+      this.setState({ photos });
+      this._savePhotos(id, list);
+    }
+  }
+  removePhoto(id, pid) {
+    const list = (this.state.photos[id] || []).filter(p => p.id !== pid);
+    const photos = Object.assign({}, this.state.photos, { [id]: list });
+    this.setState({ photos });
+    this._savePhotos(id, list);
+  }
+  countPhotos() { const p = this.state.photos || {}; return Object.keys(p).reduce((n, k) => n + (p[k] ? p[k].length : 0), 0); }
+  openLightbox(url) { this.setState({ lightbox: url }); }
+  closeLightbox() { this.setState({ lightbox: null }); }
+
+  // ---- Correção de perspetiva (4 cantos -> retângulo, via homografia) ----
+  _gauss(A, b) {
+    const n = 8; const M = A.map((r, i) => r.concat([b[i]]));
+    for (let col = 0; col < n; col++) {
+      let piv = col; for (let r = col + 1; r < n; r++) if (Math.abs(M[r][col]) > Math.abs(M[piv][col])) piv = r;
+      const tmp = M[col]; M[col] = M[piv]; M[piv] = tmp;
+      const d = M[col][col] || 1e-9;
+      for (let c = col; c <= n; c++) M[col][c] /= d;
+      for (let r = 0; r < n; r++) { if (r === col) continue; const f = M[r][col]; for (let c = col; c <= n; c++) M[r][c] -= f * M[col][c]; }
+    }
+    return M.map(r => r[n]);
+  }
+  _solveHomography(src, dst) {
+    const A = [], b = [];
+    for (let i = 0; i < 4; i++) {
+      const sx = src[i][0], sy = src[i][1], dx = dst[i][0], dy = dst[i][1];
+      A.push([sx, sy, 1, 0, 0, 0, -sx * dx, -sy * dx]); b.push(dx);
+      A.push([0, 0, 0, sx, sy, 1, -sx * dy, -sy * dy]); b.push(dy);
+    }
+    const h = this._gauss(A, b);
+    return [h[0], h[1], h[2], h[3], h[4], h[5], h[6], h[7], 1];
+  }
+  _warp(img, corners) {
+    const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+    let outW = Math.round((dist(corners[0], corners[1]) + dist(corners[3], corners[2])) / 2);
+    let outH = Math.round((dist(corners[0], corners[3]) + dist(corners[1], corners[2])) / 2);
+    outW = Math.max(64, outW); outH = Math.max(64, outH);
+    const cap = 1400, mx = Math.max(outW, outH);
+    if (mx > cap) { outW = Math.round(outW * cap / mx); outH = Math.round(outH * cap / mx); }
+    const sc = document.createElement('canvas'); sc.width = img.naturalWidth || img.width; sc.height = img.naturalHeight || img.height;
+    const sctx = sc.getContext('2d'); sctx.drawImage(img, 0, 0);
+    const sdata = sctx.getImageData(0, 0, sc.width, sc.height); const sp = sdata.data; const sw = sc.width, sh = sc.height;
+    const M = this._solveHomography([[0, 0], [outW, 0], [outW, outH], [0, outH]], corners);
+    const out = document.createElement('canvas'); out.width = outW; out.height = outH;
+    const octx = out.getContext('2d'); const odata = octx.createImageData(outW, outH); const op = odata.data;
+    for (let y = 0; y < outH; y++) {
+      for (let x = 0; x < outW; x++) {
+        const w = M[6] * x + M[7] * y + M[8];
+        const sx = (M[0] * x + M[1] * y + M[2]) / w;
+        const sy = (M[3] * x + M[4] * y + M[5]) / w;
+        const oi = (y * outW + x) * 4;
+        if (sx < 0 || sy < 0 || sx >= sw - 1 || sy >= sh - 1) { op[oi] = op[oi + 1] = op[oi + 2] = 255; op[oi + 3] = 255; continue; }
+        const x0 = sx | 0, y0 = sy | 0, fx = sx - x0, fy = sy - y0;
+        const i00 = (y0 * sw + x0) * 4, i10 = i00 + 4, i01 = i00 + sw * 4, i11 = i01 + 4;
+        for (let c = 0; c < 3; c++) {
+          const top = sp[i00 + c] * (1 - fx) + sp[i10 + c] * fx;
+          const bot = sp[i01 + c] * (1 - fx) + sp[i11 + c] * fx;
+          op[oi + c] = (top * (1 - fy) + bot * fy) | 0;
+        }
+        op[oi + 3] = 255;
+      }
+    }
+    octx.putImageData(odata, 0, 0);
+    try { return out.toDataURL('image/jpeg', 0.85); } catch (e) { return null; }
+  }
+  photoEditor(dataUrl) {
+    return new Promise((resolve) => {
+      const self = this;
+      const img = new Image();
+      img.onerror = () => resolve(dataUrl);
+      img.onload = () => {
+        const vw = Math.min(window.innerWidth, 520);
+        const vh = window.innerHeight;
+        const stageW = vw - 36, stageMaxH = vh - 172;
+        const scale = Math.min(stageW / img.width, stageMaxH / img.height, 1);
+        const dW = Math.round(img.width * scale), dH = Math.round(img.height * scale);
+        const ov = document.createElement('div');
+        ov.style.cssText = 'position:fixed;inset:0;z-index:100001;background:#0b0b0b;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Nunito Sans,Arial,sans-serif;';
+        const hint = document.createElement('div');
+        hint.textContent = 'Arrasta os cantos até às bordas do ecrã / slide';
+        hint.style.cssText = 'color:#cfcfcf;font-size:12.5px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;padding:0 24px;text-align:center;';
+        const stage = document.createElement('div');
+        stage.style.cssText = 'position:relative;width:' + dW + 'px;height:' + dH + 'px;touch-action:none;';
+        const im = document.createElement('img'); im.src = dataUrl;
+        im.style.cssText = 'width:100%;height:100%;display:block;border-radius:4px;user-select:none;-webkit-user-drag:none;';
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('width', dW); svg.setAttribute('height', dH);
+        svg.style.cssText = 'position:absolute;inset:0;pointer-events:none;';
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        poly.setAttribute('fill', 'rgba(255,255,255,0.10)'); poly.setAttribute('stroke', '#fff'); poly.setAttribute('stroke-width', '2');
+        svg.appendChild(poly); stage.appendChild(im); stage.appendChild(svg);
+        const inset = 0.1;
+        let pts = [[dW * inset, dH * inset], [dW * (1 - inset), dH * inset], [dW * (1 - inset), dH * (1 - inset)], [dW * inset, dH * (1 - inset)]];
+        const handles = [];
+        const clamp = (v, m) => Math.max(0, Math.min(m, v));
+        const redraw = () => {
+          poly.setAttribute('points', pts.map(p => p[0] + ',' + p[1]).join(' '));
+          for (let i = 0; i < 4; i++) { handles[i].style.left = pts[i][0] + 'px'; handles[i].style.top = pts[i][1] + 'px'; }
+        };
+        for (let i = 0; i < 4; i++) {
+          const hd = document.createElement('div');
+          hd.style.cssText = 'position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:rgba(255,255,255,0.25);border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.45);touch-action:none;cursor:grab;';
+          (function (idx) {
+            hd.addEventListener('pointerdown', function (ev) {
+              ev.preventDefault();
+              try { hd.setPointerCapture(ev.pointerId); } catch (e) {}
+              const move = function (e2) {
+                const rect = stage.getBoundingClientRect();
+                pts[idx] = [clamp(e2.clientX - rect.left, dW), clamp(e2.clientY - rect.top, dH)];
+                redraw();
+              };
+              const up = function () { hd.removeEventListener('pointermove', move); hd.removeEventListener('pointerup', up); };
+              hd.addEventListener('pointermove', move);
+              hd.addEventListener('pointerup', up);
+            });
+          })(i);
+          handles.push(hd); stage.appendChild(hd);
+        }
+        redraw();
+        const bar = document.createElement('div');
+        bar.style.cssText = 'display:flex;gap:10px;margin-top:18px;padding:0 18px;width:100%;max-width:' + vw + 'px;box-sizing:border-box;';
+        const mkBtn = function (label, bg, fg, bd) {
+          const b = document.createElement('div');
+          b.textContent = label;
+          b.style.cssText = 'flex:1;text-align:center;padding:13px 0;border-radius:8px;font-weight:800;font-size:13px;cursor:pointer;user-select:none;background:' + bg + ';color:' + fg + ';' + (bd ? 'border:1px solid ' + bd + ';' : '');
+          return b;
+        };
+        const done = function (val) { try { document.body.removeChild(ov); } catch (e) {} resolve(val); };
+        const bCancel = mkBtn('Cancelar', 'transparent', '#cfcfcf', '#444');
+        const bOrig = mkBtn('Original', '#222', '#fff', '#444');
+        const bFix = mkBtn('Corrigir ✓', '#fff', '#111', null);
+        bCancel.addEventListener('click', function () { done(null); });
+        bOrig.addEventListener('click', function () { done(dataUrl); });
+        bFix.addEventListener('click', function () {
+          bFix.textContent = 'A corrigir…';
+          setTimeout(function () {
+            const sp = pts.map(p => [p[0] / scale, p[1] / scale]);
+            let r = null; try { r = self._warp(img, sp); } catch (e) {}
+            done(r || dataUrl);
+          }, 30);
+        });
+        bar.appendChild(bCancel); bar.appendChild(bOrig); bar.appendChild(bFix);
+        ov.appendChild(hint); ov.appendChild(stage); ov.appendChild(bar);
+        document.body.appendChild(ov);
+      };
+      img.src = dataUrl;
+    });
+  }
+
+  exportNotes() {
+    const notes = this.state.notes || {};
+    const list = this.buildMyNotes();
+    const stamp = new Date();
+    const pad = (n) => ('' + n).padStart(2, '0');
+    const ymd = stamp.getFullYear() + '-' + pad(stamp.getMonth() + 1) + '-' + pad(stamp.getDate());
+    const nPhotos = this.countPhotos();
+    if (!list.length && nPhotos === 0) { try { alert('Ainda não há notas nem fotos para exportar.'); } catch (e) {} return; }
+    // human-readable copy
+    let txt = '6.º ptBIM 2026 — Notas pessoais\nFEUP · 17–19 jun 2026\nExportado: ' + stamp.toLocaleString('pt-PT') + '\n\n';
+    list.forEach(n => { txt += '• ' + n.meta + '\n  ' + n.title + '\n  ' + n.text.replace(/\n/g, '\n  ') + '\n\n'; });
+    const payload = { app: 'ptBIM2026', version: 2, exportedAt: stamp.toISOString(), count: list.length, photoCount: nPhotos, notes: notes, photos: this.state.photos || {}, readable: txt };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'ptBIM2026-notas-' + ymd + '.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+  }
+  importNotes(e) {
+    const file = (e && e.target && e.target.files && e.target.files[0]) ? e.target.files[0]
+      : (e && e.currentTarget && e.currentTarget.files ? e.currentTarget.files[0] : null);
+    if (!file) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try {
+        const obj = JSON.parse(r.result);
+        const incoming = obj && obj.notes ? obj.notes : obj;
+        if (!incoming || typeof incoming !== 'object') throw new Error('bad');
+        const merged = Object.assign({}, this.state.notes, incoming);
+        try { localStorage.setItem('ptbim2026.notes', JSON.stringify(merged)); } catch (er) {}
+        const incomingPhotos = (obj && obj.photos && typeof obj.photos === 'object') ? obj.photos : {};
+        const mergedPhotos = Object.assign({}, this.state.photos);
+        let nPh = 0;
+        Object.keys(incomingPhotos).forEach(k => { if (Array.isArray(incomingPhotos[k]) && incomingPhotos[k].length) { mergedPhotos[k] = incomingPhotos[k]; nPh += incomingPhotos[k].length; this._savePhotos(k, incomingPhotos[k]); } });
+        this.setState({ notes: merged, photos: mergedPhotos, view: 'plano' });
+        try { alert('Importado: ' + Object.keys(incoming).length + ' sessões com nota' + (nPh ? ' · ' + nPh + ' fotos' : '') + '.'); } catch (er) {}
+      } catch (err) { try { alert('Ficheiro inválido. Usa um ficheiro ptBIM2026-notas.json exportado por esta app.'); } catch (er) {} }
+    };
+    r.readAsText(file);
+    if (e && e.target) e.target.value = '';
+  }
+
+  roomBadge(room) {
+    const c = room === 'Auditório' ? '#111111' : '#555555';
+    return `display:inline-flex;align-items:center;font-weight:800;font-size:10px;letter-spacing:.03em;color:#fff;background:${c};padding:3px 8px;border-radius:4px;flex-shrink:0;`;
+  }
+  tagStyle(tag) {
+    if (tag === 'TOP') return 'font-weight:800;font-size:9px;letter-spacing:.08em;padding:3px 7px;border-radius:3px;background:#111111;color:#fff;flex-shrink:0;';
+    if (tag === 'WALLNUT') return 'font-weight:800;font-size:9px;letter-spacing:.08em;padding:3px 7px;border-radius:3px;background:#111111;color:#fff;flex-shrink:0;';
+    if (tag === 'VENDA') return 'font-weight:800;font-size:9px;letter-spacing:.08em;padding:3px 7px;border-radius:3px;border:1px solid #111111;color:#111111;flex-shrink:0;';
+    return 'display:none;';
+  }
+  noteBtnStyle(hasNote, open) {
+    const base = 'display:inline-block;margin-top:11px;font-size:11px;font-weight:800;letter-spacing:.02em;padding:5px 11px;border-radius:5px;cursor:pointer;user-select:none;';
+    if (hasNote) return base + 'background:#111111;color:#fff;';
+    if (open) return base + 'background:#EDEDED;color:#555555;';
+    return base + 'background:#fff;border:1px dashed rgba(0,0,0,.3);color:#555555;';
+  }
+
+  attendBtnStyle(att) {
+    const base = 'display:flex;align-items:center;gap:4px;font-weight:800;font-size:9.5px;letter-spacing:.04em;padding:4px 8px 4px 6px;border-radius:20px;cursor:pointer;user-select:none;white-space:nowrap;';
+    return att ? base + 'background:#111111;color:#fff;' : base + 'background:#fff;border:1px solid rgba(0,0,0,.22);color:#9A9A9A;';
+  }
+  cardChrome(t, att) {
+    const picked = !!t.s, wall = !!t.w;
+    const accent = wall ? '#111111' : (picked ? '#111111' : '#CCCCCC');
+    const left = att ? accent : '#E6E6E6';
+    const bg = att ? (picked ? (wall ? '#F7F7F7' : '#FFFFFF') : '#fff') : '#F4F4F4';
+    const border = att ? 'rgba(0,0,0,.1)' : 'rgba(0,0,0,.06)';
+    return {
+      cardStyle: `position:relative;background:${bg};border:1px solid ${border};border-left:4px solid ${left};border-radius:6px;padding:13px 15px;margin-bottom:9px;`,
+      timeStyle: `font-family:'PP Mori','Nunito Sans',sans-serif;font-weight:600;font-size:21px;line-height:1;color:${att ? '#111111' : '#AEAEAE'};`,
+      titleStyle: `font-weight:700;font-size:14.5px;line-height:1.3;margin-top:7px;color:${att ? (picked ? '#1A1A1A' : '#222222') : '#AAAAAA'};`,
+      authorsStyle: `font-size:12.5px;margin-top:4px;line-height:1.4;color:${att ? '#666666' : '#B4B4B4'};`,
+      mineStyle: `position:absolute;top:-7px;left:13px;font-size:8.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:3px;background:${att ? '#111111' : '#C2C2C2'};`,
+      tagStyle: this.tagStyle(t.tag) + (att ? '' : 'opacity:.5;')
+    };
+  }
+  photoBinds(sid) {
+    const arr = this.state.photos[sid] || [];
+    return {
+      photos: arr.map(p => ({ key: 'ph-' + sid + '-' + p.id, url: p.url, onOpen: () => this.openLightbox(p.url), onRemove: () => this.removePhoto(sid, p.id) })),
+      hasPhotos: arr.length > 0,
+      onAddPhoto: (e) => this.addPhotos(sid, e)
+    };
+  }
+  talkRow(t) {
+    const wall = !!t.w;
+    const att = !!this.state.attended[t.id];
+    const open = !!this.state.openNotes[t.id];
+    const noteVal = this.state.notes[t.id] || '';
+    const hasNote = noteVal.trim().length > 0;
+    const ch = this.cardChrome(t, att);
+    return Object.assign({
+      key: 't-' + t.id, isTalk: true, id: t.id, time: t.t, title: t.ti, authors: t.au,
+      showMine: !!t.s,
+      hasTag: !!t.tag, tagText: t.tag || '',
+      hasQ: !!t.q, qText: t.q || '',
+      qStyle: `background:${wall ? '#EDF0F4' : '#F2F2F2'};border-left:2px solid ${wall ? '#111111' : '#111111'};border-radius:0 3px 3px 0;padding:9px 11px;margin-top:11px;font-size:12px;line-height:1.5;color:#555;`,
+      qAccent: wall ? '#111111' : '#111111',
+      attended: att, attendLabel: att ? 'Assistida' : 'Marcar', attendBtnStyle: this.attendBtnStyle(att),
+      onToggleAttended: () => this.toggleAttended(t.id),
+      noteOpen: open, noteValue: noteVal,
+      noteBtnLabel: hasNote ? 'Nota guardada · editar' : (open ? 'Fechar nota' : '+ Nota'),
+      noteBtnStyle: this.noteBtnStyle(hasNote, open),
+      onToggleNote: () => this.toggleNote(t.id),
+      onNoteInput: (e) => this.setNote(t.id, (e && e.target) ? e.target.value : (e && e.currentTarget ? e.currentTarget.value : String(e)))
+    }, this.photoBinds(t.id), ch);
+  }
+  plenaryRow(seg, dayId) {
+    const id = 'pl-' + dayId + '-' + seg.t;
+    const att = !!this.state.attended[id];
+    const open = !!this.state.openNotes[id];
+    const noteVal = this.state.notes[id] || '';
+    const hasNote = noteVal.trim().length > 0;
+    const ch = this.cardChrome(seg, att);
+    return Object.assign({
+      key: 'p-' + id, isPlenary: true, id, time: seg.t, title: seg.ti, su: seg.su || '', room: seg.room || 'Auditório',
+      showMine: !!seg.s,
+      hasMod: !!seg.mod, mod: seg.mod || '',
+      hasTag: !!seg.tag, tagText: seg.tag || '',
+      hasQ: !!seg.q, qText: seg.q || '', qStyle: 'background:#F2F2F2;border-left:2px solid #111111;border-radius:0 3px 3px 0;padding:9px 11px;margin-top:11px;font-size:12px;line-height:1.5;color:#555;', qAccent: '#111111',
+      attended: att, attendLabel: att ? 'Assistida' : 'Marcar', attendBtnStyle: this.attendBtnStyle(att),
+      onToggleAttended: () => this.toggleAttended(id),
+      noteOpen: open, noteValue: noteVal,
+      noteBtnLabel: hasNote ? 'Nota guardada · editar' : (open ? 'Fechar nota' : '+ Nota'),
+      noteBtnStyle: this.noteBtnStyle(hasNote, open),
+      onToggleNote: () => this.toggleNote(id),
+      onNoteInput: (e) => this.setNote(id, (e && e.target) ? e.target.value : (e && e.currentTarget ? e.currentTarget.value : String(e)))
+    }, this.photoBinds(id), ch);
+  }
+
+  agendaRows() {
+    const segs = this.data().blocks[this.state.day] || [];
+    const only = this.state.onlyMine;
+    const rows = [];
+    segs.forEach((seg, si) => {
+      if (seg.ty === 'rooms') {
+        const blockPick = seg.rooms.some(r => r.k.some(t => t.s));
+        if (only && !blockPick) return;
+        rows.push({ key: 'bh-' + si, isBlockHeader: true, t: seg.t, lb: seg.lb });
+        if (seg.rota && !only) rows.push({ key: 'rota-' + si, isRota: true, text: seg.rota });
+        seg.rooms.forEach((room) => {
+          const talks = only ? room.k.filter(t => t.s) : room.k;
+          if (!talks.length) return;
+          rows.push({ key: 'rh-' + si + '-' + room.r, isRoomHeader: true, room: room.r, track: room.tr, hasMod: !!room.m, mod: room.m || '', roomBadge: this.roomBadge(room.r) });
+          talks.forEach(t => rows.push(this.talkRow(t)));
+        });
+      } else if (seg.ty === 'plenary') {
+        if (only && !seg.s) return;
+        rows.push(this.plenaryRow(seg, this.state.day));
+      } else if (seg.ty === 'sep') {
+        if (only) return;
+        rows.push({ key: 'sep-' + si, isSep: true, t: seg.t, lb: seg.lb });
+      } else if (seg.ty === 'social') {
+        if (only) return;
+        rows.push({ key: 'soc-' + si, isSocial: true, t: seg.t, lb: seg.lb });
+      }
+    });
+    return rows;
+  }
+
+  gridRows() {
+    const segs = this.data().blocks[this.state.day] || [];
+    const cols = ['Auditório', 'B035', 'B029', 'B026'];
+    const rows = [];
+    segs.forEach((seg, si) => {
+      if (seg.ty === 'rooms') {
+        const cells = cols.map(rn => {
+          const room = seg.rooms.find(r => r.r === rn);
+          if (!room) return { key: 'c-' + si + rn, track: '', mine: false, style: 'background:#F1F3F5;border-radius:5px;', txtStyle: 'display:none;', onTap: () => {} };
+          const mine = room.k.some(t => t.s);
+          const style = mine
+            ? 'background:#F2F2F2;border:1.5px solid #111111;border-radius:5px;padding:7px 6px;cursor:pointer;min-height:58px;'
+            : 'background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:5px;padding:7px 6px;cursor:pointer;min-height:58px;';
+          return {
+            key: 'c-' + si + rn, track: room.tr, mine, style,
+            txtStyle: `font-size:8.7px;line-height:1.2;font-weight:${mine ? '800' : '600'};color:${mine ? '#111111' : '#454545'};`,
+            onTap: () => this.setState({ view: 'agenda' })
+          };
+        });
+        rows.push({ key: 'g-' + si, isGrid: true, t: seg.t, lb: seg.lb, cells });
+      } else if (seg.ty === 'plenary') {
+        rows.push({ key: 'gb-' + si, isBand: true, t: seg.t, lb: seg.ti, bandStyle: `background:${seg.s ? '#111111' : '#111111'};color:#fff;border-radius:5px;padding:8px 12px;margin-bottom:4px;display:flex;gap:10px;align-items:center;` });
+      } else if (seg.ty === 'sep') {
+        rows.push({ key: 'gs-' + si, isBand: true, t: seg.t, lb: seg.lb, bandStyle: 'background:#E7E7E7;color:#555555;border-radius:5px;padding:6px 12px;margin-bottom:4px;display:flex;gap:10px;align-items:center;' });
+      } else if (seg.ty === 'social') {
+        rows.push({ key: 'gso-' + si, isBand: true, t: seg.t, lb: seg.lb, bandStyle: 'background:#F2F2F2;color:#111111;border:1px solid rgba(0,0,0,.25);border-radius:5px;padding:8px 12px;margin-bottom:4px;display:flex;gap:10px;align-items:center;' });
+      }
+    });
+    return rows;
+  }
+
+  countPicks() {
+    let n = 0;
+    const b = this.data().blocks;
+    Object.keys(b).forEach(d => (b[d] || []).forEach(seg => {
+      if (seg.ty === 'rooms') seg.rooms.forEach(r => r.k.forEach(t => { if (t.s) n++; }));
+      else if (seg.ty === 'plenary' && seg.s) n++;
+    }));
+    return n;
+  }
+  buildMyNotes() {
+    const b = this.data().blocks, notes = this.state.notes, out = [];
+    const dayLabel = { qua: 'Qua 17', qui: 'Qui 18', sex: 'Sex 19' };
+    Object.keys(b).forEach(d => (b[d] || []).forEach(seg => {
+      if (seg.ty === 'rooms') seg.rooms.forEach(r => r.k.forEach(t => {
+        const v = (notes[t.id] || '').trim();
+        if (v) out.push({ key: 'n-' + t.id, meta: dayLabel[d] + ' · ' + t.t + ' · ' + r.r, title: t.ti, text: notes[t.id] });
+      }));
+      else if (seg.ty === 'plenary') {
+        const id = 'pl-' + d + '-' + seg.t; const v = (notes[id] || '').trim();
+        if (v) out.push({ key: 'n-' + id, meta: dayLabel[d] + ' · ' + seg.t + ' · Plenária', title: seg.ti, text: notes[id] });
+      }
+    }));
+    return out;
+  }
+
+  renderVals() {
+    const { view, day, onlyMine } = this.state;
+    const isAgenda = view === 'agenda', isGrelha = view === 'grelha', isPlano = view === 'plano', isLocal = view === 'local';
+    const days = this.data().days || [];
+    const dObj = days.find(x => x.id === day) || {};
+    const ex = this.data().extras || {};
+    let shareUrl = '';
+    try { if (location.origin && location.origin.indexOf('http') === 0) shareUrl = (location.origin + location.pathname).replace(/index\.html?$/i, ''); } catch (e) {}
+
+    const chip = (a) => `display:flex;align-items:center;justify-content:center;flex:1;padding:8px 0;border-radius:7px;font-weight:800;font-size:12px;letter-spacing:.04em;cursor:pointer;${a ? 'background:#111111;color:#fff;' : 'background:#EDEDED;color:#555555;'}`;
+    const nav = (a) => `display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;cursor:pointer;color:${a ? '#111111' : '#9A9A9A'};font-weight:${a ? '800' : '600'};font-size:10px;letter-spacing:.02em;`;
+
+    const picks = this.countPicks();
+    const myNotes = this.buildMyNotes();
+
+    return {
+      statLine: this.countAttended() + ' assistidas · ' + myNotes.length + ' notas',
+      showControls: isAgenda || isGrelha,
+      isAgenda, isGrelha, isPlano, isLocal,
+      lightboxOpen: !!this.state.lightbox, lightboxUrl: this.state.lightbox || '', closeLightbox: () => this.closeLightbox(),
+      hasShare: !!shareUrl, shareUrl,
+      dayLabel: dObj.label || '', dayDate: dObj.date || '',
+      chipQua: chip(day === 'qua'), chipQui: chip(day === 'qui'), chipSex: chip(day === 'sex'),
+      dayQua: () => this.setState({ day: 'qua' }), dayQui: () => this.setState({ day: 'qui' }), daySex: () => this.setState({ day: 'sex' }),
+      mineToggleLabel: onlyMine ? 'A mostrar só as minhas escolhas' : 'Mostrar só as minhas escolhas',
+      mineToggleStyle: `display:flex;align-items:center;gap:8px;margin-top:9px;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:11.5px;font-weight:700;user-select:none;${onlyMine ? 'background:#F2F2F2;color:#111111;border:1px solid rgba(0,0,0,.3);' : 'background:#F5F5F5;color:#555555;border:1px solid rgba(0,0,0,.1);'}`,
+      mineDotStyle: `width:14px;height:14px;border-radius:4px;flex-shrink:0;${onlyMine ? 'background:#111111;' : 'background:#fff;border:1.5px solid #BBBBBB;'}`,
+      toggleMine: () => this.setState({ onlyMine: !onlyMine }),
+
+      agendaRows: this.agendaRows(),
+      gridRows: this.gridRows(),
+
+      navAgenda: () => this.setState({ view: 'agenda' }), navGrelha: () => this.setState({ view: 'grelha' }), navPlano: () => this.setState({ view: 'plano' }), navLocal: () => this.setState({ view: 'local' }),
+      navAgendaStyle: nav(isAgenda), navGrelhaStyle: nav(isGrelha), navPlanoStyle: nav(isPlano), navLocalStyle: nav(isLocal),
+
+      plObjetivo: ex.objetivo || '', plLente: ex.lente || '', plConflito: ex.conflito || '',
+      plTop5: (ex.top5 || []).map((x, i) => Object.assign({ key: 'top-' + i }, x)),
+      plNetwork: (ex.networking || []).map((p, i) => ({ key: 'net-' + i, n: p.n, d: p.d, osuffix: p.o ? '· ' + p.o : '' })),
+      myNotes, hasNotes: myNotes.length > 0, noNotes: myNotes.length === 0,
+      notesCountLabel: myNotes.length + (myNotes.length === 1 ? ' nota' : ' notas'),
+      onExport: () => this.exportNotes(), onImportFile: (e) => this.importNotes(e)
+    };
+  }
+}
+</script>
+
+
+</body></html>

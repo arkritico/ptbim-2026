@@ -1,0 +1,17 @@
+{
+  "name": "6.º ptBIM 2026 — Agenda",
+  "short_name": "ptBIM 2026",
+  "description": "Programa, grelha e notas do 6.º Congresso Português de BIM — FEUP, 17–19 jun 2026. App Wallnut.",
+  "lang": "pt-PT",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#000000",
+  "theme_color": "#111111",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
