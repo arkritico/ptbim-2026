@@ -31,6 +31,46 @@
   document.addEventListener('touchstart', hide, true);
 })();
 </script>
+<script>
+/* Prompt de instalação (Adicionar ao ecrã principal) — banner próprio, pois o Chrome
+   já não mostra prompt automático. Variante iOS com instruções. */
+(function () {
+  var KEY = 'ptbim2026.installDismiss';
+  function dismissed() { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
+  function setDismissed() { try { localStorage.setItem(KEY, '1'); } catch (e) {} }
+  function standalone() { try { return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; } catch (e) { return false; } }
+  function remove() { var el = document.getElementById('ptbim-install'); if (el && el.parentNode) el.parentNode.removeChild(el); }
+  function make(inner) {
+    if (document.getElementById('ptbim-install') || dismissed() || standalone()) return null;
+    var b = document.createElement('div'); b.id = 'ptbim-install';
+    b.style.cssText = 'position:fixed;left:12px;right:12px;bottom:14px;max-width:430px;margin:0 auto;z-index:99000;background:#111;color:#fff;border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:11px;box-shadow:0 10px 34px rgba(0,0,0,.5);font-family:Nunito Sans,Arial,sans-serif;';
+    b.innerHTML = inner;
+    document.body.appendChild(b);
+    var x = b.querySelector('[data-x]'); if (x) x.onclick = function () { setDismissed(); remove(); };
+    return b;
+  }
+  var ICON = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M5 21h14"></path></svg>';
+  function installBar(ev) {
+    var b = make(ICON + '<div style="flex:1;font-size:12.5px;line-height:1.35;font-weight:700">Instalar app ptBIM 2026<br><span style="color:#aaa;font-weight:400">acesso rápido · funciona offline</span></div><div data-go style="background:#fff;color:#111;font-weight:800;font-size:12.5px;padding:9px 14px;border-radius:8px;cursor:pointer">Instalar</div><div data-x style="color:#888;font-size:22px;line-height:1;padding:0 4px;cursor:pointer">&times;</div>');
+    if (!b) return;
+    b.querySelector('[data-go]').onclick = function () {
+      remove();
+      try { ev.prompt(); ev.userChoice.then(function (c) { if (c && c.outcome === 'accepted') setDismissed(); }); } catch (e) {}
+    };
+  }
+  if (window.__bip) installBar(window.__bip);
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); window.__bip = e; installBar(e); });
+  window.addEventListener('appinstalled', function () { setDismissed(); remove(); });
+  function iosHint() {
+    var ua = navigator.userAgent || '';
+    var iOS = /iphone|ipad|ipod/i.test(ua) && !/android/i.test(ua);
+    if (!iOS || standalone() || dismissed()) return;
+    make('<div style="flex:1;font-size:12.5px;line-height:1.4;font-weight:600">Instalar: toca em <b>Partilhar</b> e <b>“Adicionar ao ecrã principal”</b></div><div data-x style="color:#888;font-size:22px;line-height:1;padding:0 4px;cursor:pointer">&times;</div>');
+  }
+  if (document.readyState !== 'loading') setTimeout(iosHint, 2400);
+  else document.addEventListener('DOMContentLoaded', function () { setTimeout(iosHint, 2400); });
+})();
+</script>
 <x-dc>
 
 <helmet>
@@ -513,10 +553,10 @@ code, kbd, samp, pre {
   .scroll-area { scrollbar-width: none; }
   textarea.nt { font-family: 'Nunito Sans', Arial, sans-serif; }
   textarea.nt:focus { outline: none; border-color: #111111 !important; }
-  @media (display-mode: standalone), (display-mode: fullscreen) {
-    .app-backdrop { background: #000000 !important; padding: 0 !important; min-height: 100vh; align-items: stretch !important; }
-    .app-bezel { padding: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: none !important; }
-    .app-screen { width: 100vw !important; height: 100vh !important; border-radius: 0 !important; }
+  @media (max-width: 640px), (display-mode: standalone), (display-mode: fullscreen) {
+    .app-backdrop { background: #000000 !important; padding: 0 !important; min-height: 100vh; min-height: 100dvh; align-items: stretch !important; }
+    .app-bezel { padding: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: none !important; width: 100% !important; }
+    .app-screen { width: 100% !important; height: 100vh !important; height: 100dvh !important; border-radius: 0 !important; }
   }
   /* ===== Splash screen ===== */
   #ptbim-splash{position:fixed;inset:0;z-index:99999;background:#000;display:flex;align-items:center;justify-content:center;transition:opacity .55s ease;font-family:'PP Mori','Nunito Sans',Arial,sans-serif;}
@@ -613,10 +653,11 @@ code, kbd, samp, pre {
 
               <sc-if value="{{ row.isTalk }}" hint-placeholder-val="{{ true }}">
                 <div style="{{ row.cardStyle }}">
-                  <sc-if value="{{ row.showMine }}" hint-placeholder-val="{{ false }}"><div style="{{ row.mineStyle }}">★ A minha escolha</div></sc-if>
+                  <sc-if value="{{ row.showMine }}" hint-placeholder-val="{{ false }}"><div style="{{ row.mineStyle }}">★ Na minha agenda</div></sc-if>
                   <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
                     <div style="{{ row.timeStyle }}">{{ row.time }}</div>
                     <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
+                      <div onclick="{{ row.onTogglePick }}" style="{{ row.pickBtnStyle }}" title="A minha agenda"><svg viewBox="0 0 24 24" width="13" height="13" fill="{{ row.pickFill }}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 14.9 8.6 22 9.3 16.5 14 18.3 21 12 17.3 5.7 21 7.5 14 2 9.3 9.1 8.6 12 2"></polygon></svg></div>
                       <sc-if value="{{ row.hasTag }}" hint-placeholder-val="{{ false }}"><div style="{{ row.tagStyle }}">{{ row.tagText }}</div></sc-if>
                       <div onclick="{{ row.onToggleAttended }}" style="{{ row.attendBtnStyle }}"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>{{ row.attendLabel }}</div>
                     </div>
@@ -655,10 +696,11 @@ code, kbd, samp, pre {
 
               <sc-if value="{{ row.isPlenary }}" hint-placeholder-val="{{ false }}">
                 <div style="{{ row.cardStyle }}">
-                  <sc-if value="{{ row.showMine }}" hint-placeholder-val="{{ false }}"><div style="{{ row.mineStyle }}">★ A minha escolha</div></sc-if>
+                  <sc-if value="{{ row.showMine }}" hint-placeholder-val="{{ false }}"><div style="{{ row.mineStyle }}">★ Na minha agenda</div></sc-if>
                   <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
                     <div style="{{ row.timeStyle }}">{{ row.time }}</div>
                     <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
+                      <div onclick="{{ row.onTogglePick }}" style="{{ row.pickBtnStyle }}" title="A minha agenda"><svg viewBox="0 0 24 24" width="13" height="13" fill="{{ row.pickFill }}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 14.9 8.6 22 9.3 16.5 14 18.3 21 12 17.3 5.7 21 7.5 14 2 9.3 9.1 8.6 12 2"></polygon></svg></div>
                       <sc-if value="{{ row.hasTag }}" hint-placeholder-val="{{ false }}"><div style="{{ row.tagStyle }}">{{ row.tagText }}</div></sc-if>
                       <div onclick="{{ row.onToggleAttended }}" style="{{ row.attendBtnStyle }}"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>{{ row.attendLabel }}</div>
                     </div>
@@ -935,10 +977,16 @@ code, kbd, samp, pre {
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:500,&quot;height&quot;:1020}}">
 class Component extends DCLogic {
-  state = { view: 'agenda', day: 'qua', onlyMine: false, openNotes: {}, notes: {}, attended: {}, photos: {}, lightbox: null, ready: false };
+  state = { view: 'agenda', day: 'qua', onlyMine: false, openNotes: {}, notes: {}, attended: {}, picks: {}, photos: {}, lightbox: null, ready: false };
 
   componentDidMount() {
-    try { this.setState({ notes: JSON.parse(localStorage.getItem('ptbim2026.notes') || '{}'), attended: JSON.parse(localStorage.getItem('ptbim2026.attended') || '{}') }); } catch (e) {}
+    let picks = {};
+    try {
+      const raw = localStorage.getItem('ptbim2026.picks');
+      this._picksInit = raw !== null;
+      picks = raw ? (JSON.parse(raw) || {}) : {};
+    } catch (e) { this._picksInit = true; }
+    try { this.setState({ notes: JSON.parse(localStorage.getItem('ptbim2026.notes') || '{}'), attended: JSON.parse(localStorage.getItem('ptbim2026.attended') || '{}'), picks }); } catch (e) {}
     this._loadPhotos();
     this._waitData();
   }
@@ -955,11 +1003,38 @@ class Component extends DCLogic {
   }
   countAttended() { return Object.keys(this.state.attended || {}).filter(k => this.state.attended[k]).length; }
   _waitData() {
-    if (window.PTBIM_DATA) { this.setState({ ready: true }); return; }
+    const ready = () => { this._seedPicksIfNeeded(); this.setState({ ready: true }); };
+    if (window.PTBIM_DATA) { ready(); return; }
     let n = 0;
     const iv = setInterval(() => {
-      if (window.PTBIM_DATA || n++ > 40) { clearInterval(iv); this.setState({ ready: true }); }
+      if (window.PTBIM_DATA || n++ > 40) { clearInterval(iv); ready(); }
     }, 50);
+  }
+  // Escolhas por-utilizador (a minha agenda) — guardadas neste telemóvel.
+  _seedPicksIfNeeded() {
+    if (this._picksInit) return;
+    const picks = {};
+    const b = (window.PTBIM_DATA && window.PTBIM_DATA.blocks) || {};
+    Object.keys(b).forEach(d => (b[d] || []).forEach(seg => {
+      if (seg.ty === 'rooms') seg.rooms.forEach(r => r.k.forEach(t => { if (t.s) picks[t.id] = true; }));
+      else if (seg.ty === 'plenary' && seg.s) picks['pl-' + d + '-' + seg.t] = true;
+    }));
+    this._picksInit = true;
+    try { localStorage.setItem('ptbim2026.picks', JSON.stringify(picks)); } catch (e) {}
+    this.setState({ picks });
+  }
+  isPicked(id) { return !!(this.state.picks && this.state.picks[id]); }
+  togglePick(id) {
+    this.setState(s => {
+      const picks = Object.assign({}, s.picks, { [id]: !s.picks[id] });
+      if (!picks[id]) delete picks[id];
+      try { localStorage.setItem('ptbim2026.picks', JSON.stringify(picks)); } catch (e) {}
+      return { picks };
+    });
+  }
+  pickBtnStyle(picked) {
+    const base = 'display:flex;align-items:center;justify-content:center;width:30px;height:26px;border-radius:20px;cursor:pointer;user-select:none;flex-shrink:0;';
+    return picked ? base + 'background:#111111;color:#fff;' : base + 'background:#fff;border:1px solid rgba(0,0,0,.22);color:#9A9A9A;';
   }
   data() { return window.PTBIM_DATA || { days: [], blocks: {}, extras: {} }; }
 
@@ -1029,7 +1104,8 @@ class Component extends DCLogic {
     if (input) input.value = '';
     for (let i = 0; i < files.length; i++) {
       const f = files[i];
-      if (!/^image\//.test(f.type)) continue;
+      const okType = !f.type || /^image\//i.test(f.type) || /\.(jpe?g|png|gif|webp|heic|heif|bmp|tiff?)$/i.test(f.name || '');
+      if (!okType) continue; /* aceitar MIME vazio: galeria Android/ColorOS devolve type vazio */
       let base; try { base = await this._resize(f, 1600); } catch (er) { continue; }
       const edited = await this.photoEditor(base);
       if (!edited) continue;
@@ -1253,8 +1329,8 @@ class Component extends DCLogic {
     const base = 'display:flex;align-items:center;gap:4px;font-weight:800;font-size:9.5px;letter-spacing:.04em;padding:4px 8px 4px 6px;border-radius:20px;cursor:pointer;user-select:none;white-space:nowrap;';
     return att ? base + 'background:#111111;color:#fff;' : base + 'background:#fff;border:1px solid rgba(0,0,0,.22);color:#9A9A9A;';
   }
-  cardChrome(t, att) {
-    const picked = !!t.s, wall = !!t.w;
+  cardChrome(t, att, picked) {
+    const wall = !!t.w;
     const accent = wall ? '#111111' : (picked ? '#111111' : '#CCCCCC');
     const left = att ? accent : '#E6E6E6';
     const bg = att ? (picked ? (wall ? '#F7F7F7' : '#FFFFFF') : '#fff') : '#F4F4F4';
@@ -1282,10 +1358,11 @@ class Component extends DCLogic {
     const open = !!this.state.openNotes[t.id];
     const noteVal = this.state.notes[t.id] || '';
     const hasNote = noteVal.trim().length > 0;
-    const ch = this.cardChrome(t, att);
+    const picked = this.isPicked(t.id);
+    const ch = this.cardChrome(t, att, picked);
     return Object.assign({
       key: 't-' + t.id, isTalk: true, id: t.id, time: t.t, title: t.ti, authors: t.au,
-      showMine: !!t.s,
+      showMine: picked, picked, pickFill: picked ? '#fff' : 'none', pickBtnStyle: this.pickBtnStyle(picked), onTogglePick: () => this.togglePick(t.id),
       hasTag: !!t.tag, tagText: t.tag || '',
       hasQ: !!t.q, qText: t.q || '',
       qStyle: `background:${wall ? '#EDF0F4' : '#F2F2F2'};border-left:2px solid ${wall ? '#111111' : '#111111'};border-radius:0 3px 3px 0;padding:9px 11px;margin-top:11px;font-size:12px;line-height:1.5;color:#555;`,
@@ -1305,10 +1382,11 @@ class Component extends DCLogic {
     const open = !!this.state.openNotes[id];
     const noteVal = this.state.notes[id] || '';
     const hasNote = noteVal.trim().length > 0;
-    const ch = this.cardChrome(seg, att);
+    const picked = this.isPicked(id);
+    const ch = this.cardChrome(seg, att, picked);
     return Object.assign({
       key: 'p-' + id, isPlenary: true, id, time: seg.t, title: seg.ti, su: seg.su || '', room: seg.room || 'Auditório',
-      showMine: !!seg.s,
+      showMine: picked, picked, pickFill: picked ? '#fff' : 'none', pickBtnStyle: this.pickBtnStyle(picked), onTogglePick: () => this.togglePick(id),
       hasMod: !!seg.mod, mod: seg.mod || '',
       hasTag: !!seg.tag, tagText: seg.tag || '',
       hasQ: !!seg.q, qText: seg.q || '', qStyle: 'background:#F2F2F2;border-left:2px solid #111111;border-radius:0 3px 3px 0;padding:9px 11px;margin-top:11px;font-size:12px;line-height:1.5;color:#555;', qAccent: '#111111',
@@ -1328,18 +1406,18 @@ class Component extends DCLogic {
     const rows = [];
     segs.forEach((seg, si) => {
       if (seg.ty === 'rooms') {
-        const blockPick = seg.rooms.some(r => r.k.some(t => t.s));
+        const blockPick = seg.rooms.some(r => r.k.some(t => this.isPicked(t.id)));
         if (only && !blockPick) return;
         rows.push({ key: 'bh-' + si, isBlockHeader: true, t: seg.t, lb: seg.lb });
         if (seg.rota && !only) rows.push({ key: 'rota-' + si, isRota: true, text: seg.rota });
         seg.rooms.forEach((room) => {
-          const talks = only ? room.k.filter(t => t.s) : room.k;
+          const talks = only ? room.k.filter(t => this.isPicked(t.id)) : room.k;
           if (!talks.length) return;
           rows.push({ key: 'rh-' + si + '-' + room.r, isRoomHeader: true, room: room.r, track: room.tr, hasMod: !!room.m, mod: room.m || '', roomBadge: this.roomBadge(room.r) });
           talks.forEach(t => rows.push(this.talkRow(t)));
         });
       } else if (seg.ty === 'plenary') {
-        if (only && !seg.s) return;
+        if (only && !this.isPicked('pl-' + this.state.day + '-' + seg.t)) return;
         rows.push(this.plenaryRow(seg, this.state.day));
       } else if (seg.ty === 'sep') {
         if (only) return;
@@ -1361,7 +1439,7 @@ class Component extends DCLogic {
         const cells = cols.map(rn => {
           const room = seg.rooms.find(r => r.r === rn);
           if (!room) return { key: 'c-' + si + rn, track: '', mine: false, style: 'background:#F1F3F5;border-radius:5px;', txtStyle: 'display:none;', onTap: () => {} };
-          const mine = room.k.some(t => t.s);
+          const mine = room.k.some(t => this.isPicked(t.id));
           const style = mine
             ? 'background:#F2F2F2;border:1.5px solid #111111;border-radius:5px;padding:7px 6px;cursor:pointer;min-height:58px;'
             : 'background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:5px;padding:7px 6px;cursor:pointer;min-height:58px;';
@@ -1373,7 +1451,8 @@ class Component extends DCLogic {
         });
         rows.push({ key: 'g-' + si, isGrid: true, t: seg.t, lb: seg.lb, cells });
       } else if (seg.ty === 'plenary') {
-        rows.push({ key: 'gb-' + si, isBand: true, t: seg.t, lb: seg.ti, bandStyle: `background:${seg.s ? '#111111' : '#111111'};color:#fff;border-radius:5px;padding:8px 12px;margin-bottom:4px;display:flex;gap:10px;align-items:center;` });
+        const plPick = this.isPicked('pl-' + this.state.day + '-' + seg.t);
+        rows.push({ key: 'gb-' + si, isBand: true, t: seg.t, lb: seg.ti, bandStyle: `background:${plPick ? '#111111' : '#555555'};color:#fff;border-radius:5px;padding:8px 12px;margin-bottom:4px;display:flex;gap:10px;align-items:center;` });
       } else if (seg.ty === 'sep') {
         rows.push({ key: 'gs-' + si, isBand: true, t: seg.t, lb: seg.lb, bandStyle: 'background:#E7E7E7;color:#555555;border-radius:5px;padding:6px 12px;margin-bottom:4px;display:flex;gap:10px;align-items:center;' });
       } else if (seg.ty === 'social') {
@@ -1384,13 +1463,8 @@ class Component extends DCLogic {
   }
 
   countPicks() {
-    let n = 0;
-    const b = this.data().blocks;
-    Object.keys(b).forEach(d => (b[d] || []).forEach(seg => {
-      if (seg.ty === 'rooms') seg.rooms.forEach(r => r.k.forEach(t => { if (t.s) n++; }));
-      else if (seg.ty === 'plenary' && seg.s) n++;
-    }));
-    return n;
+    const p = this.state.picks || {};
+    return Object.keys(p).filter(k => p[k]).length;
   }
   buildMyNotes() {
     const b = this.data().blocks, notes = this.state.notes, out = [];
@@ -1424,7 +1498,7 @@ class Component extends DCLogic {
     const myNotes = this.buildMyNotes();
 
     return {
-      statLine: this.countAttended() + ' assistidas · ' + myNotes.length + ' notas',
+      statLine: this.countPicks() + ' na agenda · ' + myNotes.length + ' notas',
       showControls: isAgenda || isGrelha,
       isAgenda, isGrelha, isPlano, isLocal,
       lightboxOpen: !!this.state.lightbox, lightboxUrl: this.state.lightbox || '', closeLightbox: () => this.closeLightbox(),
