@@ -1,5 +1,6 @@
-/* ptBIM 2026 — service worker. App shell + unpkg (React/Babel) cache para uso offline. */
-const CACHE = 'ptbim2026-v1';
+/* ptBIM 2026 — service worker. App shell + unpkg (React/Babel) cache para uso offline.
+   HTML = network-first (atualiza já quando online); restantes = cache-first c/ atualização. */
+const CACHE = 'ptbim2026-v2';
 const PRECACHE = [
   './', 'index.html', 'manifest.webmanifest', 'qr.png',
   'assets/campus_feup.png',
@@ -29,12 +30,25 @@ self.addEventListener('fetch', (e) => {
   const isCdn = url.hostname === 'unpkg.com';
   if (!sameOrigin && !isCdn) return; // deixa passar (ex.: tiles de mapa)
 
+  const isHTML = req.mode === 'navigate' || (req.headers.get('accept') || '').includes('text/html');
+
+  if (isHTML) {
+    // network-first: garante a versão mais recente quando online; cai para cache offline
+    e.respondWith(
+      fetch(req)
+        .then((res) => { if (res && res.status === 200) caches.open(CACHE).then((c) => c.put(req, res.clone())); return res; })
+        .catch(() => caches.open(CACHE).then((c) => c.match(req).then((hit) => hit || c.match('./') || c.match('index.html'))))
+    );
+    return;
+  }
+
+  // restantes (JS/CSS/img/fontes/unpkg): cache-first com atualização em fundo
   e.respondWith(
     caches.open(CACHE).then((cache) =>
       cache.match(req).then((hit) => {
         const net = fetch(req)
           .then((res) => { if (res && res.status === 200) cache.put(req, res.clone()); return res; })
-          .catch(() => hit || (req.mode === 'navigate' ? cache.match('./') : undefined));
+          .catch(() => hit);
         return hit || net;
       })
     )
