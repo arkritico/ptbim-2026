@@ -576,7 +576,16 @@ code, kbd, samp, pre {
 </style>
 <script>
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+    var __hadCtrl = !!navigator.serviceWorker.controller, __refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (__refreshing || !__hadCtrl) return; __refreshing = true; location.reload();
+    });
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').then(function (reg) {
+        try { reg.update(); } catch (e) {}
+        setInterval(function () { try { reg.update(); } catch (e) {} }, 60000);
+      }).catch(function () {});
+    });
   }
 </script>
 </helmet>
