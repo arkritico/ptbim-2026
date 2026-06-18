@@ -2969,6 +2969,11 @@ code, kbd, samp, pre {
             <div onclick="{{ dayQui }}" style="{{ chipQui }}">QUI 18</div>
             <div onclick="{{ daySex }}" style="{{ chipSex }}">SEX 19</div>
           </div>
+          <sc-if value="{{ showHidePast }}" hint-placeholder-val="{{ false }}">
+            <div onclick="{{ toggleHidePast }}" style="{{ hidePastStyle }}">
+              <span style="{{ hidePastDot }}"></span>{{ hidePastLabel }}
+            </div>
+          </sc-if>
           <sc-if value="{{ isAgenda }}" hint-placeholder-val="{{ true }}">
             <div onclick="{{ toggleMine }}" style="{{ mineToggleStyle }}">
               <span style="{{ mineDotStyle }}"></span>{{ mineToggleLabel }}
@@ -3385,16 +3390,31 @@ code, kbd, samp, pre {
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:500,&quot;height&quot;:1020}}">
 class Component extends DCLogic {
-  state = { view: 'agenda', day: 'qua', onlyMine: false, openNotes: {}, notes: {}, attended: {}, picks: {}, photos: {}, lightbox: null, updating: false, ready: false };
+  state = { view: 'agenda', day: 'qua', onlyMine: false, hidePast: true, openNotes: {}, notes: {}, attended: {}, picks: {}, photos: {}, lightbox: null, updating: false, ready: false };
+
+  // Dia do congresso correspondente a hoje (ou null fora do evento)
+  _todayConfDay() {
+    try {
+      const d = new Date();
+      const key = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+      return ({ '2026-5-17': 'qua', '2026-5-18': 'qui', '2026-5-19': 'sex' })[key] || null;
+    } catch (e) { return null; }
+  }
+  _nowMin() { try { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); } catch (e) { return 0; } }
+  _tmin(s) { const m = String(s).match(/(\d{1,2})h(\d{0,2})/); return m ? (parseInt(m[1], 10) * 60 + (m[2] ? parseInt(m[2], 10) : 0)) : null; }
 
   componentDidMount() {
+    this._todayDay = this._todayConfDay();
     let picks = {};
     try {
       const raw = localStorage.getItem('ptbim2026.picks');
       this._picksInit = raw !== null;
       picks = raw ? (JSON.parse(raw) || {}) : {};
     } catch (e) { this._picksInit = true; }
-    try { this.setState({ notes: JSON.parse(localStorage.getItem('ptbim2026.notes') || '{}'), attended: JSON.parse(localStorage.getItem('ptbim2026.attended') || '{}'), picks }); } catch (e) {}
+    const init = { notes: {}, attended: {}, picks };
+    try { init.notes = JSON.parse(localStorage.getItem('ptbim2026.notes') || '{}'); init.attended = JSON.parse(localStorage.getItem('ptbim2026.attended') || '{}'); } catch (e) {}
+    if (this._todayDay) init.day = this._todayDay;   // abre no dia de hoje
+    try { this.setState(init); } catch (e) {}
     this._loadPhotos();
     this._waitData();
     this._importHash();
@@ -3894,8 +3914,16 @@ class Component extends DCLogic {
   agendaRows() {
     const segs = this.data().blocks[this.state.day] || [];
     const only = this.state.onlyMine;
+    // Esconder o que já passou (só no dia de hoje): mostrar a partir do bloco a decorrer.
+    const hp = this.state.hidePast && this.state.day === this._todayDay;
+    let curIdx = 0;
+    if (hp) {
+      const now = this._nowMin();
+      segs.forEach((seg, i) => { const sm = this._tmin(seg.t); if (sm != null && sm <= now) curIdx = i; });
+    }
     const rows = [];
     segs.forEach((seg, si) => {
+      if (hp && si < curIdx) return;
       if (seg.ty === 'rooms') {
         const blockPick = seg.rooms.some(r => r.k.some(t => this.isPicked(t.id)));
         if (only && !blockPick) return;
@@ -4015,6 +4043,8 @@ class Component extends DCLogic {
     const myNotes = this.buildMyNotes();
     const maRows = this.myAgenda();
     const nPicks = this.countPicks();
+    const isToday = (day === this._todayDay);
+    const nowLabel = (() => { try { const d = new Date(); return d.getHours() + 'h' + String(d.getMinutes()).padStart(2, '0'); } catch (e) { return ''; } })();
 
     return {
       statLine: this.countPicks() + ' na agenda · ' + myNotes.length + ' notas',
@@ -4030,6 +4060,11 @@ class Component extends DCLogic {
       mineToggleStyle: `display:flex;align-items:center;gap:8px;margin-top:9px;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:11.5px;font-weight:700;user-select:none;${onlyMine ? 'background:#F2F2F2;color:#111111;border:1px solid rgba(0,0,0,.3);' : 'background:#F5F5F5;color:#555555;border:1px solid rgba(0,0,0,.1);'}`,
       mineDotStyle: `width:14px;height:14px;border-radius:4px;flex-shrink:0;${onlyMine ? 'background:#111111;' : 'background:#fff;border:1.5px solid #BBBBBB;'}`,
       toggleMine: () => this.setState({ onlyMine: !onlyMine }),
+      showHidePast: isAgenda && isToday,
+      hidePastLabel: this.state.hidePast ? ('A mostrar desde agora · ' + nowLabel) : 'Ocultar o que já passou',
+      hidePastStyle: `display:flex;align-items:center;gap:8px;margin-top:9px;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:11.5px;font-weight:700;user-select:none;${this.state.hidePast ? 'background:#F2F2F2;color:#111111;border:1px solid rgba(0,0,0,.3);' : 'background:#F5F5F5;color:#555555;border:1px solid rgba(0,0,0,.1);'}`,
+      hidePastDot: `width:14px;height:14px;border-radius:4px;flex-shrink:0;${this.state.hidePast ? 'background:#111111;' : 'background:#fff;border:1.5px solid #BBBBBB;'}`,
+      toggleHidePast: () => this.setState({ hidePast: !this.state.hidePast }),
 
       agendaRows: this.agendaRows(),
       gridRows: this.gridRows(),
@@ -4045,7 +4080,7 @@ class Component extends DCLogic {
       myNotes, hasNotes: myNotes.length > 0, noNotes: myNotes.length === 0,
       notesCountLabel: myNotes.length + (myNotes.length === 1 ? ' nota' : ' notas'),
       onExport: () => this.exportNotes(), onImportFile: (e) => this.importNotes(e),
-      appVersion: 'v9 · 17 jun 2026',
+      appVersion: 'v10 · 18 jun 2026',
       updateLabel: this.state.updating ? 'A atualizar…' : 'Procurar atualização',
       onCheckUpdate: () => this.checkUpdate(),
       onShareAgenda: () => this.shareAgenda()

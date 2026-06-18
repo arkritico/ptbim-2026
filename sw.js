@@ -1,6 +1,6 @@
 /* ptBIM 2026 — service worker. App shell + unpkg (React/Babel) cache para uso offline.
    HTML = network-first (atualiza já quando online); restantes = cache-first c/ atualização. */
-const CACHE = 'ptbim2026-v9';
+const CACHE = 'ptbim2026-v10';
 const PRECACHE = [
   './', 'index.html', 'manifest.webmanifest', 'qr.png',
   'assets/campus_feup.png', 'assets/planta.png',
