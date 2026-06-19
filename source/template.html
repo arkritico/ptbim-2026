@@ -3519,14 +3519,19 @@ class Component extends DCLogic {
       if (!url || url.length < 64 || url.indexOf('data:image/jpeg') !== 0) throw new Error('jpeg inválido');
       return url;
     };
-    // 1) createImageBitmap: mais formatos + corrige orientação EXIF
-    const viaBitmap = () => {
+    // 1) createImageBitmap a REDUZIR já na descodificação — limita memória em fotos enormes
+    //    (ex.: Pixel 50MP; sem isto, descodificar várias seguidas esgota a memória e falham).
+    const viaBitmap = (retry) => {
       if (typeof createImageBitmap !== 'function') return Promise.reject(new Error('no bitmap'));
-      let opts; try { opts = { imageOrientation: 'from-image' }; } catch (e) { opts = undefined; }
+      const opts = { imageOrientation: 'from-image', resizeWidth: Math.round(max * 1.15), resizeQuality: 'high' };
       return createImageBitmap(file, opts).then((bmp) => {
         const url = enc(bmp.width, bmp.height, (ctx, w, h) => ctx.drawImage(bmp, 0, 0, w, h));
         try { bmp.close(); } catch (e) {}
         return url;
+      }).catch((err) => {
+        if (retry) throw err;
+        // 2ª tentativa após pausa: dá tempo ao browser para libertar memória entre fotos grandes
+        return new Promise((r) => setTimeout(r, 220)).then(() => viaBitmap(true));
       });
     };
     // 2) fallback <img>
@@ -3563,8 +3568,9 @@ class Component extends DCLogic {
       const photos = Object.assign({}, this.state.photos, { [id]: list });
       this.setState({ photos });
       this._savePhotos(id, list);
+      await new Promise((r) => setTimeout(r, 100)); // respira entre fotos grandes (liberta memória)
     }
-    if (skipped) { try { alert(skipped + (skipped === 1 ? ' foto não foi lida' : ' fotos não foram lidas') + ' (formato não suportado, ex.: HEIC do iPhone). Dica: usa o botão "Câmara", ou nas Definições da Câmara do telemóvel muda o formato para "Mais compatível" / JPEG.'); } catch (e) {} }
+    if (skipped) { try { alert(skipped + (skipped === 1 ? ' foto não foi lida' : ' fotos não foram lidas') + '. Costuma ser memória (fotos muito grandes): tenta de novo, de preferência poucas de cada vez ou pelo botão "Câmara". Se persistir num formato específico (ex.: HEIC), muda a câmara para JPEG / "Mais compatível".'); } catch (e) {} }
   }
   removePhoto(id, pid) {
     const list = (this.state.photos[id] || []).filter(p => p.id !== pid);
@@ -4100,7 +4106,7 @@ class Component extends DCLogic {
       myNotes, hasNotes: myNotes.length > 0, noNotes: myNotes.length === 0,
       notesCountLabel: myNotes.length + (myNotes.length === 1 ? ' nota' : ' notas'),
       onExport: () => this.exportNotes(), onImportFile: (e) => this.importNotes(e),
-      appVersion: 'v11 · 18 jun 2026',
+      appVersion: 'v12 · 18 jun 2026',
       updateLabel: this.state.updating ? 'A atualizar…' : 'Procurar atualização',
       onCheckUpdate: () => this.checkUpdate(),
       onShareAgenda: () => this.shareAgenda()
