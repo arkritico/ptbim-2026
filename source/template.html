@@ -3042,7 +3042,7 @@ code, kbd, samp, pre {
                       <label style="display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:11px;letter-spacing:.02em;padding:6px 11px;border-radius:5px;cursor:pointer;user-select:none;background:#fff;border:1px dashed rgba(0,0,0,.3);color:#555555;position:relative;">
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="M21 15l-5-5L5 21"></path></svg>
                         Galeria
-                        <input type="file" accept="image/*" multiple onchange="{{ row.onAddPhoto }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
+                        <input type="file" accept="image/*" multiple="multiple" onchange="{{ row.onAddPhoto }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
                       </label>
                       <sc-for list="{{ row.photos }}" as="ph" hint-placeholder-count="0">
                         <div style="position:relative;width:54px;height:54px;border-radius:6px;overflow:hidden;border:1px solid rgba(0,0,0,.15);flex-shrink:0;">
@@ -3085,7 +3085,7 @@ code, kbd, samp, pre {
                       <label style="display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:11px;letter-spacing:.02em;padding:6px 11px;border-radius:5px;cursor:pointer;user-select:none;background:#fff;border:1px dashed rgba(0,0,0,.3);color:#555555;position:relative;">
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="M21 15l-5-5L5 21"></path></svg>
                         Galeria
-                        <input type="file" accept="image/*" multiple onchange="{{ row.onAddPhoto }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
+                        <input type="file" accept="image/*" multiple="multiple" onchange="{{ row.onAddPhoto }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
                       </label>
                       <sc-for list="{{ row.photos }}" as="ph" hint-placeholder-count="0">
                         <div style="position:relative;width:54px;height:54px;border-radius:6px;overflow:hidden;border:1px solid rgba(0,0,0,.15);flex-shrink:0;">
@@ -3508,24 +3508,41 @@ class Component extends DCLogic {
   }
   _resize(file, max) {
     max = max || 1500;
-    return new Promise((resolve, reject) => {
+    const enc = (srcW, srcH, draw) => {
+      let w = srcW, h = srcH;
+      if (!w || !h) throw new Error('sem dimensões');
+      const scale = Math.min(1, max / Math.max(w, h));
+      w = Math.round(w * scale); h = Math.round(h * scale);
+      const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+      draw(cv.getContext('2d'), w, h);
+      const url = cv.toDataURL('image/jpeg', 0.82);
+      if (!url || url.length < 64 || url.indexOf('data:image/jpeg') !== 0) throw new Error('jpeg inválido');
+      return url;
+    };
+    // 1) createImageBitmap: mais formatos + corrige orientação EXIF
+    const viaBitmap = () => {
+      if (typeof createImageBitmap !== 'function') return Promise.reject(new Error('no bitmap'));
+      let opts; try { opts = { imageOrientation: 'from-image' }; } catch (e) { opts = undefined; }
+      return createImageBitmap(file, opts).then((bmp) => {
+        const url = enc(bmp.width, bmp.height, (ctx, w, h) => ctx.drawImage(bmp, 0, 0, w, h));
+        try { bmp.close(); } catch (e) {}
+        return url;
+      });
+    };
+    // 2) fallback <img>
+    const viaImg = () => new Promise((resolve, reject) => {
       const fr = new FileReader();
       fr.onload = () => {
         const img = new Image();
-        img.onload = () => {
-          let w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
-          const scale = Math.min(1, max / Math.max(w, h));
-          w = Math.round(w * scale); h = Math.round(h * scale);
-          const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
-          cv.getContext('2d').drawImage(img, 0, 0, w, h);
-          try { resolve(cv.toDataURL('image/jpeg', 0.82)); } catch (e) { resolve(fr.result); }
-        };
-        img.onerror = () => resolve(fr.result);
+        img.onload = () => { try { resolve(enc(img.naturalWidth || img.width, img.naturalHeight || img.height, (ctx, w, h) => ctx.drawImage(img, 0, 0, w, h))); } catch (e) { reject(e); } };
+        img.onerror = () => reject(new Error('decode falhou'));
         img.src = fr.result;
       };
-      fr.onerror = reject;
+      fr.onerror = () => reject(new Error('leitura falhou'));
       fr.readAsDataURL(file);
     });
+    // NUNCA devolve dados em bruto: se não der para descodificar, rejeita (não guarda imagem partida)
+    return viaBitmap().catch(() => viaImg());
   }
   async addPhotos(id, e) {
     const input = e && (e.target || e.currentTarget);
@@ -3533,9 +3550,11 @@ class Component extends DCLogic {
     if (input) input.value = '';
     // aceitar MIME vazio (galeria Android/ColorOS devolve type vazio) ou por extensão
     const files = all.filter(f => !f.type || /^image\//i.test(f.type) || /\.(jpe?g|png|gif|webp|heic|heif|bmp|tiff?)$/i.test(f.name || ''));
+    let skipped = 0;
     for (let i = 0; i < files.length; i++) {
       const f = files[i];
-      let base; try { base = await this._resize(f, 1600); } catch (er) { continue; }
+      let base;
+      try { base = await this._resize(f, 1600); } catch (er) { skipped++; continue; }
       const label = files.length > 1 ? ('Foto ' + (i + 1) + ' de ' + files.length) : '';
       const edited = await this.photoEditor(base, label);
       if (!edited) continue;
@@ -3545,6 +3564,7 @@ class Component extends DCLogic {
       this.setState({ photos });
       this._savePhotos(id, list);
     }
+    if (skipped) { try { alert(skipped + (skipped === 1 ? ' foto não foi lida' : ' fotos não foram lidas') + ' (formato não suportado, ex.: HEIC do iPhone). Dica: usa o botão "Câmara", ou nas Definições da Câmara do telemóvel muda o formato para "Mais compatível" / JPEG.'); } catch (e) {} }
   }
   removePhoto(id, pid) {
     const list = (this.state.photos[id] || []).filter(p => p.id !== pid);
@@ -4080,7 +4100,7 @@ class Component extends DCLogic {
       myNotes, hasNotes: myNotes.length > 0, noNotes: myNotes.length === 0,
       notesCountLabel: myNotes.length + (myNotes.length === 1 ? ' nota' : ' notas'),
       onExport: () => this.exportNotes(), onImportFile: (e) => this.importNotes(e),
-      appVersion: 'v10 · 18 jun 2026',
+      appVersion: 'v11 · 18 jun 2026',
       updateLabel: this.state.updating ? 'A atualizar…' : 'Procurar atualização',
       onCheckUpdate: () => this.checkUpdate(),
       onShareAgenda: () => this.shareAgenda()
