@@ -3044,6 +3044,11 @@ code, kbd, samp, pre {
                         Galeria
                         <input type="file" accept="image/*" multiple="multiple" onchange="{{ row.onAddPhoto }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
                       </label>
+                      <label style="display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:11px;letter-spacing:.02em;padding:6px 11px;border-radius:5px;cursor:pointer;user-select:none;background:#fff;border:1px dashed rgba(0,0,0,.3);color:#555555;position:relative;">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                        Vídeo
+                        <input type="file" accept="video/*" onchange="{{ row.onAddVideo }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
+                      </label>
                       <sc-for list="{{ row.photos }}" as="ph" hint-placeholder-count="0">
                         <div style="position:relative;width:54px;height:54px;border-radius:6px;overflow:hidden;border:1px solid rgba(0,0,0,.15);flex-shrink:0;">
                           <img src="{{ ph.url }}" onclick="{{ ph.onOpen }}" style="width:100%;height:100%;object-fit:cover;cursor:pointer;display:block;">
@@ -3051,6 +3056,18 @@ code, kbd, samp, pre {
                         </div>
                       </sc-for>
                     </div>
+                    <sc-for list="{{ row.videos }}" as="vd" hint-placeholder-count="0">
+                      <div style="margin-top:9px;">
+                        <div style="background:#000;border-radius:6px;overflow:hidden;"><video src="{{ vd.url }}" controls="controls" playsinline="playsinline" preload="metadata" style="width:100%;max-height:300px;display:block;background:#000;"></video></div>
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 2px 0;">
+                          <span style="font-size:10px;color:#9A9A9A;font-weight:700;">Vídeo · {{ vd.sizeLabel }} · só neste telemóvel</span>
+                          <span style="display:flex;gap:14px;">
+                            <a href="{{ vd.url }}" download="{{ vd.dl }}" style="font-size:11px;font-weight:800;color:#111111;text-decoration:none;">Guardar</a>
+                            <span onclick="{{ vd.onRemove }}" style="font-size:11px;font-weight:800;color:#888888;cursor:pointer;">Remover</span>
+                          </span>
+                        </div>
+                      </div>
+                    </sc-for>
                   </sc-if>
                 </div>
               </sc-if>
@@ -3087,6 +3104,11 @@ code, kbd, samp, pre {
                         Galeria
                         <input type="file" accept="image/*" multiple="multiple" onchange="{{ row.onAddPhoto }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
                       </label>
+                      <label style="display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:11px;letter-spacing:.02em;padding:6px 11px;border-radius:5px;cursor:pointer;user-select:none;background:#fff;border:1px dashed rgba(0,0,0,.3);color:#555555;position:relative;">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                        Vídeo
+                        <input type="file" accept="video/*" onchange="{{ row.onAddVideo }}" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;">
+                      </label>
                       <sc-for list="{{ row.photos }}" as="ph" hint-placeholder-count="0">
                         <div style="position:relative;width:54px;height:54px;border-radius:6px;overflow:hidden;border:1px solid rgba(0,0,0,.15);flex-shrink:0;">
                           <img src="{{ ph.url }}" onclick="{{ ph.onOpen }}" style="width:100%;height:100%;object-fit:cover;cursor:pointer;display:block;">
@@ -3094,6 +3116,18 @@ code, kbd, samp, pre {
                         </div>
                       </sc-for>
                     </div>
+                    <sc-for list="{{ row.videos }}" as="vd" hint-placeholder-count="0">
+                      <div style="margin-top:9px;">
+                        <div style="background:#000;border-radius:6px;overflow:hidden;"><video src="{{ vd.url }}" controls="controls" playsinline="playsinline" preload="metadata" style="width:100%;max-height:300px;display:block;background:#000;"></video></div>
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 2px 0;">
+                          <span style="font-size:10px;color:#9A9A9A;font-weight:700;">Vídeo · {{ vd.sizeLabel }} · só neste telemóvel</span>
+                          <span style="display:flex;gap:14px;">
+                            <a href="{{ vd.url }}" download="{{ vd.dl }}" style="font-size:11px;font-weight:800;color:#111111;text-decoration:none;">Guardar</a>
+                            <span onclick="{{ vd.onRemove }}" style="font-size:11px;font-weight:800;color:#888888;cursor:pointer;">Remover</span>
+                          </span>
+                        </div>
+                      </div>
+                    </sc-for>
                   </sc-if>
                 </div>
               </sc-if>
@@ -3390,7 +3424,7 @@ code, kbd, samp, pre {
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:500,&quot;height&quot;:1020}}">
 class Component extends DCLogic {
-  state = { view: 'agenda', day: 'qua', onlyMine: false, hidePast: true, openNotes: {}, notes: {}, attended: {}, picks: {}, photos: {}, lightbox: null, updating: false, ready: false };
+  state = { view: 'agenda', day: 'qua', onlyMine: false, hidePast: true, openNotes: {}, notes: {}, attended: {}, picks: {}, photos: {}, videos: {}, lightbox: null, updating: false, ready: false };
 
   // Dia do congresso correspondente a hoje (ou null fora do evento)
   _todayConfDay() {
@@ -3416,6 +3450,7 @@ class Component extends DCLogic {
     if (this._todayDay) init.day = this._todayDay;   // abre no dia de hoje
     try { this.setState(init); } catch (e) {}
     this._loadPhotos();
+    this._loadVideos();
     this._waitData();
     this._importHash();
   }
@@ -3483,8 +3518,8 @@ class Component extends DCLogic {
     if (this._dbp) return this._dbp;
     this._dbp = new Promise((resolve, reject) => {
       try {
-        const req = indexedDB.open('ptbim2026', 1);
-        req.onupgradeneeded = () => { const db = req.result; if (!db.objectStoreNames.contains('photos')) db.createObjectStore('photos'); };
+        const req = indexedDB.open('ptbim2026', 2);
+        req.onupgradeneeded = () => { const db = req.result; if (!db.objectStoreNames.contains('photos')) db.createObjectStore('photos'); if (!db.objectStoreNames.contains('videos')) db.createObjectStore('videos'); };
         req.onsuccess = () => resolve(req.result);
         req.onerror = () => reject(req.error);
       } catch (e) { reject(e); }
@@ -3883,11 +3918,65 @@ class Component extends DCLogic {
   }
   photoBinds(sid) {
     const arr = this.state.photos[sid] || [];
+    const vids = this.state.videos[sid] || [];
     return {
       photos: arr.map(p => ({ key: 'ph-' + sid + '-' + p.id, url: p.url, onOpen: () => this.openLightbox(p.url), onRemove: () => this.removePhoto(sid, p.id) })),
       hasPhotos: arr.length > 0,
-      onAddPhoto: (e) => this.addPhotos(sid, e)
+      onAddPhoto: (e) => this.addPhotos(sid, e),
+      videos: vids.map(v => ({ key: 'vd-' + sid + '-' + v.id, url: v.url, sizeLabel: this._fmtSize(v.size), dl: v.name || ('video-' + v.id + '.mp4'), onRemove: () => this.removeVideo(sid, v.id) })),
+      hasVideos: vids.length > 0,
+      onAddVideo: (e) => this.addVideo(sid, e)
     };
+  }
+  // ---- Vídeos (gravar/anexar) guardados no aparelho (IndexedDB, Blob). NÃO entram no backup/sync. ----
+  async _loadVideos() {
+    try {
+      const db = await this._db();
+      const videos = await new Promise((resolve) => {
+        const st = db.transaction('videos', 'readonly').objectStore('videos');
+        const out = {}; const cur = st.openCursor();
+        cur.onsuccess = () => { const c = cur.result; if (c) { if (Array.isArray(c.value) && c.value.length) out[c.key] = c.value.map(v => ({ id: v.id, blob: v.blob, size: v.size, type: v.type, name: v.name, url: (() => { try { return URL.createObjectURL(v.blob); } catch (e) { return ''; } })() })); c.continue(); } else resolve(out); };
+        cur.onerror = () => resolve(out);
+      });
+      this.setState({ videos });
+    } catch (e) {}
+  }
+  async _saveVideos(id, list) {
+    try {
+      const db = await this._db();
+      const st = db.transaction('videos', 'readwrite').objectStore('videos');
+      const slim = (list || []).map(v => ({ id: v.id, blob: v.blob, size: v.size, type: v.type, name: v.name }));
+      if (slim.length) st.put(slim, id); else st.delete(id);
+    } catch (e) {}
+  }
+  _fmtSize(b) { b = b || 0; if (b >= 1048576) return (b / 1048576).toFixed(1) + ' MB'; if (b >= 1024) return Math.round(b / 1024) + ' KB'; return b + ' B'; }
+  async addVideo(id, e) {
+    const input = e && (e.target || e.currentTarget);
+    const files = input && input.files ? Array.prototype.slice.call(input.files) : [];
+    if (input) input.value = '';
+    const MAX = 80 * 1024 * 1024;
+    const cur = (this.state.videos[id] || []).slice();
+    let ok = 0, big = 0;
+    for (let i = 0; i < files.length; i++) {
+      const f = files[i];
+      const isVid = /^video\//i.test(f.type) || /\.(mp4|m4v|mov|webm|3gp|3g2|mkv|avi)$/i.test(f.name || '');
+      if (!isVid) continue;
+      if (f.size > MAX) { big++; continue; }
+      const vid = Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + i;
+      let url = ''; try { url = URL.createObjectURL(f); } catch (er) {}
+      cur.push({ id: vid, blob: f, size: f.size, type: f.type || '', name: f.name || ('video-' + vid + '.mp4'), url });
+      ok++;
+    }
+    if (ok) { const videos = Object.assign({}, this.state.videos, { [id]: cur }); this.setState({ videos }); this._saveVideos(id, cur); }
+    if (big) { try { alert(big + (big === 1 ? ' vídeo é demasiado grande' : ' vídeos são demasiado grandes') + ' (máx. 80 MB). Grava um clip mais curto, ou guarda o vídeo direto na galeria do telemóvel.'); } catch (e) {} }
+  }
+  removeVideo(id, vid) {
+    const arr = this.state.videos[id] || [];
+    const g = arr.find(v => v.id === vid); if (g && g.url) { try { URL.revokeObjectURL(g.url); } catch (e) {} }
+    const list = arr.filter(v => v.id !== vid);
+    const videos = Object.assign({}, this.state.videos, { [id]: list });
+    this.setState({ videos });
+    this._saveVideos(id, list);
   }
   talkRow(t) {
     const wall = !!t.w;
@@ -4106,7 +4195,7 @@ class Component extends DCLogic {
       myNotes, hasNotes: myNotes.length > 0, noNotes: myNotes.length === 0,
       notesCountLabel: myNotes.length + (myNotes.length === 1 ? ' nota' : ' notas'),
       onExport: () => this.exportNotes(), onImportFile: (e) => this.importNotes(e),
-      appVersion: 'v12 · 18 jun 2026',
+      appVersion: 'v13 · 21 jun 2026',
       updateLabel: this.state.updating ? 'A atualizar…' : 'Procurar atualização',
       onCheckUpdate: () => this.checkUpdate(),
       onShareAgenda: () => this.shareAgenda()
